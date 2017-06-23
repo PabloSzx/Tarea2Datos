@@ -1,6 +1,8 @@
 #include <iostream>
 #include <iomanip>
 #include <math.h>
+#include <time.h>
+#include <ctime>
 #include "arreglo.h"
 #include "avl.h"
 #include "lista.h"
@@ -9,36 +11,88 @@
 int dim=1000000;
 int seed;
 
-int getRandomNumber() {
-  return rand()%dim;
-}
-int* generarArreglo(int n) {
-  int *arreglo = arreglo_crear(n);
-  for(int i = 0; i < n;i++){
-    arreglo_insert(arreglo, i, getRandomNumber());
-  }
-
-  return arreglo;
+void start_time_count(clock_t* start) {
+  (*start) = clock();
 }
 
-lista* generarLista(int n) {
-  lista *list = lista_crear();
-  for(int i = 0; i < n;i++){
-    lista_insertar(&list, getRandomNumber());
-  }
-
-
-  return list;
+void end_time_count(clock_t* end) {
+  (*end) = clock();
 }
 
-avlNode* generarBst(int n) {
-  avlNode *bst = NULL;
+void calculate_duration(clock_t* start, clock_t* end, int tipo) {
+  // cout << CLOCKS_PER_SEC << endl;
+  double duration = ((*end) - (*start)) / (double) CLOCKS_PER_SEC;
 
-  for(int i = 0; i < n;i++){
-    bst = avlInsert(bst, getRandomNumber());
+
+  switch (tipo) {
+    case 0:
+    {
+      cout << "Generar el arreglo";
+      break;
+    }
+    case 1:
+    {
+      cout << "Generar la lista";
+      break;
+    }
+    case 2:
+    {
+      cout << "Generar el bst";
+      break;
+    }
+    case 3:
+    {
+      cout << "Generar el hash";
+      break;
+    }
+  }
+  cout << " se demoró: " << duration << endl;
+
+}
+
+hashNode** generarHash(int n, int m);
+avlNode* generarBst(int n);
+lista* generarLista(int n);
+int* generarArreglo(int n);
+int getRandomNumber();
+
+int main(int argc, char const *argv[]) {
+
+  if(argc != 2){
+    cout << "ejecutar como ./prog n" << endl;
+    exit(EXIT_FAILURE);
   }
 
-  return bst;
+  clock_t start;
+  clock_t end;
+
+  start_time_count(&start);
+
+  end_time_count(&end);
+
+  calculate_duration(&start, &end, 1);
+
+  int n = atoi(argv[1]);
+
+  seed = time(NULL);
+  srand(seed);
+
+  start_time_count(&start);
+  int *arreglo = generarArreglo(n);
+  end_time_count(&end);
+  calculate_duration(&start, &end, 0);
+  arreglo_print(arreglo, n);
+
+  cout << endl << endl;
+  postOrder(generarBst(n));
+  cout << endl << endl;
+  lista_imprimir(generarLista(n));
+  cout << endl << endl;
+  int m = sqrt(n);
+  
+  hash_print(generarHash(n, m), m);
+
+  return 0;
 }
 
 hashNode** generarHash(int n, int m) {
@@ -55,26 +109,35 @@ hashNode** generarHash(int n, int m) {
   return ht;
 }
 
-int main(int argc, char const *argv[]) {
+avlNode* generarBst(int n) {
+  avlNode *bst = NULL;
 
-  if(argc != 2){
-    cout << "ejecutar como ./prog n" << endl;
-    exit(EXIT_FAILURE);
+  for(int i = 0; i < n;i++){
+    bst = avlInsert(bst, getRandomNumber());
   }
 
-  int n = atoi(argv[1]);
-  seed = time(NULL);
-  srand(seed);
+  return bst;
+}
 
-  arreglo_print(generarArreglo(n), n);
+lista* generarLista(int n) {
+  lista *list = lista_crear();
+  for(int i = 0; i < n;i++){
+    lista_insertar(&list, getRandomNumber());
+  }
 
-  cout << endl << endl;
-  postOrder(generarBst(n));
-  cout << endl << endl;
-  lista_imprimir(generarLista(n));
-  cout << endl << endl;
-  int m = sqrt(n);
-  hash_print(generarHash(n, m), m);
 
-  return 0;
+  return list;
+}
+
+int* generarArreglo(int n) {
+  int *arreglo = arreglo_crear(n);
+  for(int i = 0; i < n;i++){
+    arreglo_insert(arreglo, i, getRandomNumber());
+  }
+
+  return arreglo;
+}
+
+int getRandomNumber() {
+  return rand()%dim;
 }
