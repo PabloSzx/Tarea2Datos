@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 typedef struct hashNode{
   int val;
   struct hashNode* next;

@@ -1,4 +1,4 @@
-// C program to insert a node in AVL tree
+#include <stdlib.h>
 
 using namespace std;
 // An AVL tree node
