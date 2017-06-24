@@ -3,6 +3,7 @@
 #include <math.h>
 #include <time.h>
 #include <ctime>
+#include <stddef.h>
 #include "arreglo.h"
 #include "avl.h"
 #include "lista.h"
@@ -15,14 +16,11 @@ void start_time_count(clock_t* start) {
   (*start) = clock();
 }
 
-void end_time_count(clock_t* end) {
-  (*end) = clock();
-}
-
 void calculate_duration(clock_t* start, clock_t* end, int tipo) {
   // cout << CLOCKS_PER_SEC << endl;
-  double duration = ((*end) - (*start)) / (double) CLOCKS_PER_SEC;
+  (*end) = clock();
 
+  double duration = ((*end) - (*start)) / (double) CLOCKS_PER_SEC;
 
   switch (tipo) {
     case 0:
@@ -66,31 +64,64 @@ int main(int argc, char const *argv[]) {
   clock_t start;
   clock_t end;
 
-  start_time_count(&start);
-
-  end_time_count(&end);
-
-  calculate_duration(&start, &end, 1);
-
   int n = atoi(argv[1]);
 
   seed = time(NULL);
   srand(seed);
 
-  start_time_count(&start);
-  int *arreglo = generarArreglo(n);
-  end_time_count(&end);
-  calculate_duration(&start, &end, 0);
-  arreglo_print(arreglo, n);
+  // start_time_count(&start);
+  // int *arreglo = generarArreglo(n);
+  // calculate_duration(&start, &end, 0);
+  // arreglo_print(arreglo, n);
+  //
+  // cout << endl << endl;
+  // start_time_count(&start);
+  // postOrder(generarBst(n));
+  // calculate_duration(&start, &end, 2);
+  //
+  // cout << endl << endl;
+  //
+  // start_time_count(&start);
+  // lista_imprimir(generarLista(n));
+  // calculate_duration(&start, &end, 1);
+  //
+  // cout << endl << endl;
+  //
+  // int m = sqrt(n);
+  // start_time_count(&start);
+  // hash_print(generarHash(n, m), m);
+  // calculate_duration(&start, &end, 3);
 
-  cout << endl << endl;
-  postOrder(generarBst(n));
-  cout << endl << endl;
-  lista_imprimir(generarLista(n));
-  cout << endl << endl;
-  int m = sqrt(n);
-  
-  hash_print(generarHash(n, m), m);
+
+  // int m = 10;
+  // hashNode **ht = (hashNode**)malloc(sizeof(hashNode*)*m);
+  // for(int i=0; i < m; i++){
+  //   ht[i] = NULL;
+  // }
+  // gen_hashfunc(m);
+  //
+  // hash_insert(ht, 10)
+
+  avlNode *tree = NULL;
+
+  tree = avlInsert(tree, 1);
+  tree = avlInsert(tree, 3);
+  tree = avlInsert(tree, 2);
+  tree = avlInsert(tree, 5);
+  tree = avlInsert(tree, 8);
+  tree = avlInsert(tree, 4);
+  tree = avlInsert(tree, 10);
+  tree = avlInsert(tree, 12);
+  tree = avlInsert(tree, 14);
+  tree = avlInsert(tree, 16);
+  tree = avlInsert(tree, 20);
+  postOrder(tree);
+
+  cout << "eliminar valor 5" << endl;
+  tree = bst_eliminar(bst_buscar(tree, 10));
+  // cout << bst_buscar(&tree, 10)->key;
+
+  postOrder(tree);
 
   return 0;
 }

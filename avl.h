@@ -40,6 +40,26 @@ struct avlNode* newAvlNode(int key)
   return(node);
 }
 
+void postOrder(avlNode* p, int indent = 0)
+
+{
+  if(p != NULL) {
+    if(p->right) {
+      postOrder(p->right, indent+4);
+    }
+    if (indent) {
+      std::cout << std::setw(indent) << ' ';
+    }
+    if (p->right) std::cout<<" /\n" << std::setw(indent) << ' ';
+    std::cout<< p->key << "\n ";
+    if(p->left) {
+      std::cout << std::setw(indent) << ' ' <<" \\\n";
+      postOrder(p->left, indent+4);
+    }
+  }
+}
+
+
 // A utility function to right rotate subtree rooted with y
 // See the diagram given above.
 struct avlNode *rightRotate(struct avlNode *y)
@@ -88,7 +108,7 @@ int getBalance(struct avlNode *N)
 
 // Recursive function to insert key in subtree rooted
 // with node and returns new root of subtree.
-struct avlNode* avlInsert(struct avlNode* node, int key)
+avlNode* avlInsert(avlNode* node, int key)
 {
   /* 1.  Perform the normal BST insertion */
   if (node == NULL)
@@ -139,17 +159,122 @@ struct avlNode* avlInsert(struct avlNode* node, int key)
   return node;
 }
 
-avlNode* bst_buscar(avlNode **r, int val){
-  if ((*r) == NULL) {
+// avlNode* bst_buscar(avlNode **r, int val){
+//   if ((*r) == NULL) {
+//     cout << "\nNodo no encontrado";
+//     return NULL;
+//   } else if ((*r)->key < val) {
+//     return bst_buscar(&(*r)->right, val);
+//   } else if ((*r)->key > val) {
+//     return bst_buscar(&(*r)->left, val);
+//   } else {
+//     return (*r);
+//   }
+// }
+
+avlNode* bst_buscar(avlNode *r, int val){
+  if ((r) == NULL) {
     cout << "\nNodo no encontrado";
     return NULL;
-  } else if ((*r)->key < val) {
-    return bst_buscar(&(*r)->right, val);
-  } else if ((*r)->key > val) {
-    return bst_buscar(&(*r)->left, val);
+  } else if ((r)->key < val) {
+    return bst_buscar((r)->right, val);
+  } else if ((r)->key > val) {
+    return bst_buscar((r)->left, val);
   } else {
-    return (*r);
+    return (r);
   }
+}
+
+
+avlNode* minValueNode(avlNode* node)
+{
+  avlNode* current = node;
+
+  /* loop down to find the leftmost leaf */
+  while (current->left != NULL)
+  current = current->left;
+
+  return current;
+}
+
+avlNode* bst_eliminar(avlNode *root) {
+  // cout << "bst_eliminar" << endl;
+  // cout << root->right->key << endl;
+  // cout << root->left->key << endl;
+  // postOrder(root);
+  // node with only one child or no child
+  if( (root->left == NULL) || (root->right == NULL) )
+  {
+    struct avlNode *temp = root->left ? root->left :
+    root->right;
+
+    // No child case
+    if (temp == NULL)
+    {
+      temp = root;
+      root = NULL;
+    }
+    else // One child case
+    *root = *temp; // Copy the contents of
+    // the non-empty child
+    // free(temp);
+  }
+  else
+  {
+    // node with two children: Get the inorder
+    // successor (smallest in the right subtree)
+    struct avlNode* temp = minValueNode(root->right);
+
+    // Copy the inorder successor's data to this node
+    root->key = temp->key;
+
+    // Delete the inorder successor
+    root->right = bst_eliminar(bst_buscar((root->right), temp->key));
+    // root->right = bst_eliminar(root->right, temp->key);
+  }
+
+  if (root == NULL)
+  return root;
+
+  root->height = 1 + max(height(root->left),
+  height(root->right));
+
+  // STEP 3: GET THE BALANCE FACTOR OF THIS NODE (to
+  // check whether this node became unbalanced)
+
+  int balance = getBalance(root);
+
+  // If this node becomes unbalanced, then there are 4 cases
+
+  // Left Left Case
+  if (balance > 1 && getBalance(root->left) >= 0)
+  // return rightRotate(root);
+  root = rightRotate(root);
+  // Left Right Case
+  else if (balance > 1 && getBalance(root->left) < 0)
+  {
+    root->left =  leftRotate(root->left);
+    // return rightRotate(root);
+    root = rightRotate(root);
+
+  }
+
+  // Right Right Case
+  else if (balance < -1 && getBalance(root->right) <= 0)
+  // return leftRotate(root);
+  root = leftRotate(root);
+
+
+  // Right Left Case
+  else if (balance < -1 && getBalance(root->right) > 0)
+  {
+    root->right = rightRotate(root->right);
+    // return leftRotate(root);
+    root = leftRotate(root);
+
+  }
+
+  return root;
 }
 
 // struct avlNode* deleteNode(struct avlNode* root, int key)
@@ -242,22 +367,3 @@ avlNode* bst_buscar(avlNode **r, int val){
 //
 //   return root;
 // }
-
-
-void postOrder(avlNode* p, int indent = 0)
-{
-  if(p != NULL) {
-    if(p->right) {
-      postOrder(p->right, indent+4);
-    }
-    if (indent) {
-      std::cout << std::setw(indent) << ' ';
-    }
-    if (p->right) std::cout<<" /\n" << std::setw(indent) << ' ';
-    std::cout<< p->key << "\n ";
-    if(p->left) {
-      std::cout << std::setw(indent) << ' ' <<" \\\n";
-      postOrder(p->left, indent+4);
-    }
-  }
-}

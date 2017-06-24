@@ -69,20 +69,22 @@ nodoLista* lista_buscar(lista **lista, int x) {
   return NULL;
 }
 
-void lista_eliminar(lista **lista, nodoLista **ptr) {
-  if ((*ptr)->next == NULL && (*ptr)->prev == NULL) {
-    (*lista)->start = NULL;
+void lista_eliminar(nodoLista **nodo) {
+  if ((*nodo)->next == NULL && (*nodo)->prev == NULL) {
+    (*nodo) = NULL;
+    // (*lista)->start = NULL;
   } else {
-    if ((*ptr)->next != NULL) {
-      ((*ptr)->next)->prev = (*ptr)->prev;
+    if ((*nodo)->next != NULL) {
+      ((*nodo)->next)->prev = (*nodo)->prev;
     } else {
-      ((*ptr)->prev)->next = NULL;
+      ((*nodo)->prev)->next = NULL;
     }
 
-    if ((*ptr)->prev != NULL) {
-      ((*ptr)->prev)->next = (*ptr)->next;
+    if ((*nodo)->prev != NULL) {
+      ((*nodo)->prev)->next = (*nodo)->next;
     } else {
-      (*lista)->start = (*ptr)->next;
+      (*nodo) = (*nodo)->next;
+      // (*lista)->start = (*nodo)->next;
     }
   }
 }

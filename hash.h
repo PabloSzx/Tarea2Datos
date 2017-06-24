@@ -4,12 +4,15 @@
 typedef struct hashNode{
   int val;
   struct hashNode* next;
+  struct hashNode* prev;
+
 } hashNode;
 
 hashNode* crear_nodo(int x){
   hashNode *aux = (hashNode*)malloc(sizeof(hashNode));
   aux->val = x;
   aux->next = NULL;
+  aux->prev = NULL;
   return aux;
 }
 
@@ -79,10 +82,59 @@ void gen_hashfunc(int n){
 void hash_insert(hashNode **ht, int x){
   int pos = h2(x);
 
-  hashNode *a = crear_nodo(x);
-  hashNode *aux = ht[pos];
-  a->next = aux;
-  ht[pos] = a;
+  hashNode *n = crear_nodo(x);
+
+  hashNode **ptr = &ht[pos];
+
+  if ((*ptr) == NULL) {
+    ht[pos] = n;
+    // (*ptr) = n;
+  } else {
+    (*ptr)->prev = n;
+    n->next = (*ptr);
+    // ((*lista)->start)->prev = n;
+    // n->next = (*lista)->start;
+    ht[pos] = n;
+    // (*lista)->start = n;
+  }
+
+  // a->next = aux;
+  // ht[pos] = a;
+}
+
+hashNode* hash_buscar(hashNode **ht, int x) {
+  int pos = h2(x);
+
+  hashNode *ptr = ht[pos];
+
+  while (ptr != NULL) {
+    if (ptr->val == x) {
+      return ptr;
+    }
+    ptr = ptr->next;
+  }
+
+  return NULL;
+}
+
+void hash_eliminar(hashNode **nodo) {
+  if ((*nodo)->next == NULL && (*nodo)->prev == NULL) {
+    (*nodo) = NULL;
+    // (*lista)->start = NULL;
+  } else {
+    if ((*nodo)->next != NULL) {
+      ((*nodo)->next)->prev = (*nodo)->prev;
+    } else {
+      ((*nodo)->prev)->next = NULL;
+    }
+
+    if ((*nodo)->prev != NULL) {
+      ((*nodo)->prev)->next = (*nodo)->next;
+    } else {
+      (*nodo) = (*nodo)->next;
+      // (*lista)->start = (*nodo)->next;
+    }
+  }
 }
 
 // 4) retorna 1 si x existe en ht, de lo contrario 0
