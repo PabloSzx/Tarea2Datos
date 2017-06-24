@@ -1,4 +1,4 @@
-
+#include <stdlib.h>
 using namespace std;
 
 int* arreglo_crear(int n) {

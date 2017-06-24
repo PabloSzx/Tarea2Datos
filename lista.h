@@ -1,4 +1,4 @@
-
+#include <stdlib.h>
 using namespace std;
 
 typedef struct nodoLista {

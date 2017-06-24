@@ -12,19 +12,13 @@
 int dim=1000000;
 int seed;
 
-void start_time_count(clock_t* start) {
+void start_time(clock_t* start) { //Inicia el contador de tiempo
   (*start) = clock();
 }
 
-void end_time_count(clock_t* end) {
+void end_time(clock_t* start, clock_t* end, int tipo) { //Finaliza el contador de tiempo
   (*end) = clock();
-}
-
-void calculate_duration(clock_t* start, clock_t* end, int tipo) {
-  // cout << CLOCKS_PER_SEC << endl;
   double duration = ((*end) - (*start)) / (double) CLOCKS_PER_SEC;
-
-
   switch (tipo) {
     case 0:
     {
@@ -48,7 +42,6 @@ void calculate_duration(clock_t* start, clock_t* end, int tipo) {
     }
   }
   cout << " se demoró: " << duration << endl;
-
 }
 
 hashNode** generarHash(int n, int m);
@@ -67,31 +60,57 @@ int main(int argc, char const *argv[]) {
   clock_t start;
   clock_t end;
 
-  start_time_count(&start);
-
-  end_time_count(&end);
-
-  calculate_duration(&start, &end, 1);
+  //Tiempo para generar la lista
+  // start_time_count(&start);
+  //
+  // end_time_count(&end);
+  //
+  // calculate_duration(&start, &end, 1);
 
   int n = atoi(argv[1]);
 
   seed = time(NULL);
   srand(seed);
 
-  start_time_count(&start);
+  //-------------------------------------------------------------------------------
+  //IMPLEMENTACION DEL ARREGLO
+  start_time(&start);
   int *arreglo = generarArreglo(n);
-  end_time_count(&end);
-  calculate_duration(&start, &end, 0);
+  end_time(&start, &end, 0);
   arreglo_print(arreglo, n);
 
-  cout << endl << endl;
-  postOrder(generarBst(n));
-  cout << endl << endl;
-  lista_imprimir(generarLista(n));
-  cout << endl << endl;
-  int m = sqrt(n);
+  int buscar = 321269;//busco un elemento en el arreglo y trato de eliminarlo
+  int numero_arreglo = arreglo_buscar(arreglo, buscar,n);
+  arreglo_delete(arreglo,numero_arreglo);
+  arreglo_print(arreglo, n);
 
-  hash_print(generarHash(n, m), m);
+  //-------------------------------------------------------------------------------
+  //IMPLEMENTACION DEL LA LISTA ENLAZADA
+  start_time(&start);
+
+  end_time(&start, &end, 0);
+
+
+
+  //-------------------------------------------------------------------------------
+  //IMPLEMENTACION DEL AVL
+
+
+
+  //-------------------------------------------------------------------------------
+  //IMPLEMENTACION DEL HASH MAP
+
+
+
+
+  // cout << endl << endl;
+  // postOrder(generarBst(n));
+  // cout << endl << endl;
+  // lista_imprimir(generarLista(n);
+  // cout << endl << endl;
+  // int m = sqrt(n);
+  //
+  // hash_print(generarHash(n, m), m);
 
   return 0;
 }
