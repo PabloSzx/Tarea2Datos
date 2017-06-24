@@ -14,7 +14,7 @@ struct avlNode
 int max(int a, int b);
 
 // A utility function to get height of the tree
-int height(struct avlNode *N)
+int height(avlNode *N)
 {
   if (N == NULL)
   return 0;
@@ -29,10 +29,10 @@ int max(int a, int b)
 
 /* Helper function that allocates a new node with the given key and
 NULL left and right pointers. */
-struct avlNode* newAvlNode(int key)
+avlNode* newAvlNode(int key)
 {
-  struct avlNode* node = (struct avlNode*)
-  malloc(sizeof(struct avlNode));
+  avlNode* node = (avlNode*)
+  malloc(sizeof(avlNode));
   node->key   = key;
   node->left   = NULL;
   node->right  = NULL;
@@ -48,12 +48,12 @@ void postOrder(avlNode* p, int indent = 0)
       postOrder(p->right, indent+4);
     }
     if (indent) {
-      std::cout << std::setw(indent) << ' ';
+      cout << setw(indent) << ' ';
     }
-    if (p->right) std::cout<<" /\n" << std::setw(indent) << ' ';
-    std::cout<< p->key << "\n ";
+    if (p->right) cout<<" /\n" << setw(indent) << ' ';
+    cout<< p->key << "\n ";
     if(p->left) {
-      std::cout << std::setw(indent) << ' ' <<" \\\n";
+      cout << setw(indent) << ' ' <<" \\\n";
       postOrder(p->left, indent+4);
     }
   }
@@ -62,10 +62,10 @@ void postOrder(avlNode* p, int indent = 0)
 
 // A utility function to right rotate subtree rooted with y
 // See the diagram given above.
-struct avlNode *rightRotate(struct avlNode *y)
+avlNode *rightRotate(avlNode *y)
 {
-  struct avlNode *x = y->left;
-  struct avlNode *T2 = x->right;
+  avlNode *x = y->left;
+  avlNode *T2 = x->right;
 
   // Perform rotation
   x->right = y;
@@ -81,10 +81,10 @@ struct avlNode *rightRotate(struct avlNode *y)
 
 // A utility function to left rotate subtree rooted with x
 // See the diagram given above.
-struct avlNode *leftRotate(struct avlNode *x)
+avlNode *leftRotate(avlNode *x)
 {
-  struct avlNode *y = x->right;
-  struct avlNode *T2 = y->left;
+  avlNode *y = x->right;
+  avlNode *T2 = y->left;
 
   // Perform rotation
   y->left = x;
@@ -99,7 +99,7 @@ struct avlNode *leftRotate(struct avlNode *x)
 }
 
 // Get Balance factor of node N
-int getBalance(struct avlNode *N)
+int getBalance(avlNode *N)
 {
   if (N == NULL)
   return 0;
@@ -159,34 +159,21 @@ avlNode* avlInsert(avlNode* node, int key)
   return node;
 }
 
-// avlNode* bst_buscar(avlNode **r, int val){
-//   if ((*r) == NULL) {
-//     cout << "\nNodo no encontrado";
-//     return NULL;
-//   } else if ((*r)->key < val) {
-//     return bst_buscar(&(*r)->right, val);
-//   } else if ((*r)->key > val) {
-//     return bst_buscar(&(*r)->left, val);
-//   } else {
-//     return (*r);
-//   }
-// }
-
-avlNode* bst_buscar(avlNode *r, int val){
-  if ((r) == NULL) {
+avlNode* bst_buscar(avlNode **r, int val){
+  if ((*r) == NULL) {
     cout << "\nNodo no encontrado";
     return NULL;
-  } else if ((r)->key < val) {
-    return bst_buscar((r)->right, val);
-  } else if ((r)->key > val) {
-    return bst_buscar((r)->left, val);
+  } else if ((*r)->key < val) {
+    return bst_buscar((*r)->right, val);
+  } else if ((*r)->key > val) {
+    return bst_buscar((*r)->left, val);
   } else {
-    return (r);
+    return (*r);
   }
 }
 
 
-avlNode* minValueNode(avlNode* node)
+avlNode* minValueAvlNode(avlNode* node)
 {
   avlNode* current = node;
 
@@ -197,173 +184,92 @@ avlNode* minValueNode(avlNode* node)
   return current;
 }
 
-avlNode* bst_eliminar(avlNode *root) {
-  // cout << "bst_eliminar" << endl;
-  // cout << root->right->key << endl;
-  // cout << root->left->key << endl;
-  // postOrder(root);
-  // node with only one child or no child
-  if( (root->left == NULL) || (root->right == NULL) )
-  {
-    struct avlNode *temp = root->left ? root->left :
-    root->right;
-
-    // No child case
-    if (temp == NULL)
-    {
-      temp = root;
-      root = NULL;
-    }
-    else // One child case
-    *root = *temp; // Copy the contents of
-    // the non-empty child
-    // free(temp);
-  }
-  else
-  {
-    // node with two children: Get the inorder
-    // successor (smallest in the right subtree)
-    struct avlNode* temp = minValueNode(root->right);
-
-    // Copy the inorder successor's data to this node
-    root->key = temp->key;
-
-    // Delete the inorder successor
-    root->right = bst_eliminar(bst_buscar((root->right), temp->key));
-    // root->right = bst_eliminar(root->right, temp->key);
-  }
+avlNode* deleteAvlNode( avlNode* root, int key) {
+  // STEP 1: PERFORM STANDARD BST DELETE
 
   if (root == NULL)
   return root;
 
+  // If the key to be deleted is smaller than the
+  // root's key, then it lies in left subtree
+  if ( key < root->key )
+  root->left = deleteAvlNode(root->left, key);
+
+  // If the key to be deleted is greater than the
+  // root's key, then it lies in right subtree
+  else if( key > root->key )
+  root->right = deleteAvlNode(root->right, key);
+
+  // if key is same as root's key, then This is
+  // the node to be deleted
+  else
+  {
+    // node with only one child or no child
+    if( (root->left == NULL) || (root->right == NULL) )
+    {
+      avlNode *temp = root->left ? root->left :
+      root->right;
+
+      // No child case
+      if (temp == NULL)
+      {
+        temp = root;
+        root = NULL;
+      }
+      else // One child case
+      *root = *temp; // Copy the contents of
+      // the non-empty child
+      free(temp);
+    }
+    else
+    {
+      // node with two children: Get the inorder
+      // successor (smallest in the right subtree)
+      avlNode* temp = minValueAvlNode(root->right);
+
+      // Copy the inorder successor's data to this node
+      root->key = temp->key;
+
+      // Delete the inorder successor
+      root->right = deleteAvlNode(root->right, temp->key);
+    }
+  }
+
+  // If the tree had only one node then return
+  if (root == NULL)
+  return root;
+
+  // STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
   root->height = 1 + max(height(root->left),
   height(root->right));
 
   // STEP 3: GET THE BALANCE FACTOR OF THIS NODE (to
   // check whether this node became unbalanced)
-
   int balance = getBalance(root);
 
   // If this node becomes unbalanced, then there are 4 cases
 
   // Left Left Case
   if (balance > 1 && getBalance(root->left) >= 0)
-  // return rightRotate(root);
-  root = rightRotate(root);
+  return rightRotate(root);
+
   // Left Right Case
-  else if (balance > 1 && getBalance(root->left) < 0)
+  if (balance > 1 && getBalance(root->left) < 0)
   {
     root->left =  leftRotate(root->left);
-    // return rightRotate(root);
-    root = rightRotate(root);
-
+    return rightRotate(root);
   }
 
   // Right Right Case
-  else if (balance < -1 && getBalance(root->right) <= 0)
-  // return leftRotate(root);
-  root = leftRotate(root);
-
+  if (balance < -1 && getBalance(root->right) <= 0)
+  return leftRotate(root);
 
   // Right Left Case
-  else if (balance < -1 && getBalance(root->right) > 0)
+  if (balance < -1 && getBalance(root->right) > 0)
   {
     root->right = rightRotate(root->right);
-    // return leftRotate(root);
-    root = leftRotate(root);
-
+    return leftRotate(root);
   }
 
   return root;
 }
-
-// struct avlNode* deleteNode(struct avlNode* root, int key)
-// {
-//   // STEP 1: PERFORM STANDARD BST DELETE
-//
-//   if (root == NULL)
-//   return root;
-//
-//   // If the key to be deleted is smaller than the
-//   // root's key, then it lies in left subtree
-//   if ( key < root->key )
-//   root->left = deleteNode(root->left, key);
-//
-//   // If the key to be deleted is greater than the
-//   // root's key, then it lies in right subtree
-//   else if( key > root->key )
-//   root->right = deleteNode(root->right, key);
-//
-//   // if key is same as root's key, then This is
-//   // the node to be deleted
-//   else
-//   {
-//     // node with only one child or no child
-//     if( (root->left == NULL) || (root->right == NULL) )
-//     {
-//       struct Node *temp = root->left ? root->left :
-//       root->right;
-//
-//       // No child case
-//       if (temp == NULL)
-//       {
-//         temp = root;
-//         root = NULL;
-//       }
-//       else // One child case
-//       *root = *temp; // Copy the contents of
-//       // the non-empty child
-//       free(temp);
-//     }
-//     else
-//     {
-//       // node with two children: Get the inorder
-//       // successor (smallest in the right subtree)
-//       struct Node* temp = minValueNode(root->right);
-//
-//       // Copy the inorder successor's data to this node
-//       root->key = temp->key;
-//
-//       // Delete the inorder successor
-//       root->right = deleteNode(root->right, temp->key);
-//     }
-//   }
-//
-//   // If the tree had only one node then return
-//   if (root == NULL)
-//   return root;
-//
-//   // STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
-//   root->height = 1 + max(height(root->left),
-//   height(root->right));
-//
-//   // STEP 3: GET THE BALANCE FACTOR OF THIS NODE (to
-//   // check whether this node became unbalanced)
-//   int balance = getBalance(root);
-//
-//   // If this node becomes unbalanced, then there are 4 cases
-//
-//   // Left Left Case
-//   if (balance > 1 && getBalance(root->left) >= 0)
-//   return rightRotate(root);
-//
-//   // Left Right Case
-//   if (balance > 1 && getBalance(root->left) < 0)
-//   {
-//     root->left =  leftRotate(root->left);
-//     return rightRotate(root);
-//   }
-//
-//   // Right Right Case
-//   if (balance < -1 && getBalance(root->right) <= 0)
-//   return leftRotate(root);
-//
-//   // Right Left Case
-//   if (balance < -1 && getBalance(root->right) > 0)
-//   {
-//     root->right = rightRotate(root->right);
-//     return leftRotate(root);
-//   }
-//
-//   return root;
-// }

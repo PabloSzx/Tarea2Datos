@@ -118,7 +118,8 @@ int main(int argc, char const *argv[]) {
   postOrder(tree);
 
   cout << "eliminar valor 5" << endl;
-  tree = bst_eliminar(bst_buscar(tree, 10));
+  tree = deleteAvlNode(tree, 5);
+  // tree = bst_eliminar(bst_buscar(&tree, 20));
   // cout << bst_buscar(&tree, 10)->key;
 
   postOrder(tree);
