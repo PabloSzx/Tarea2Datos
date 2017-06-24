@@ -1,17 +1,17 @@
+#ifndef AVL_H
+#define AVL_H
+
 #include <stdlib.h>
 
 using namespace std;
 // An AVL tree node
 struct avlNode
 {
-  int key;
+  int val;
   struct avlNode *left;
   struct avlNode *right;
   int height;
 };
-
-// A utility function to get maximum of two integers
-int max(int a, int b);
 
 // A utility function to get height of the tree
 int bst_height(avlNode *N)
@@ -21,17 +21,12 @@ int bst_height(avlNode *N)
   return N->height;
 }
 
-// A utility function to get maximum of two integers
-int max(int a, int b) {
-  return (a > b)? a : b;
-}
-
-/* Helper function that allocates a new node with the given key and
+/* Helper function that allocates a new node with the given val and
 NULL left and right pointers. */
-avlNode* bst_crear_nodo(int key) {
+avlNode* bst_crear_nodo(int val) {
   avlNode* node = (avlNode*)
   malloc(sizeof(avlNode));
-  node->key   = key;
+  node->val   = val;
   node->left   = NULL;
   node->right  = NULL;
   node->height = 1;  // new node is initially added at leaf
@@ -47,7 +42,7 @@ void bst_print(avlNode* p, int indent = 0) {
       cout << setw(indent) << ' ';
     }
     if (p->right) cout<<" /\n" << setw(indent) << ' ';
-    cout<< p->key << "\n ";
+    cout<< p->val << "\n ";
     if(p->left) {
       cout << setw(indent) << ' ' <<" \\\n";
       bst_print(p->left, indent+4);
@@ -99,18 +94,18 @@ int bst_get_balance(avlNode *N) {
   return bst_height(N->left) - bst_height(N->right);
 }
 
-// Recursive function to insert key in subtree rooted
+// Recursive function to insert val in subtree rooted
 // with node and returns new root of subtree.
-avlNode* bst_insert(avlNode* node, int key) {
+avlNode* bst_insert(avlNode* node, int val) {
   /* 1.  Perform the normal BST insertion */
   if (node == NULL)
-  return(bst_crear_nodo(key));
+  return(bst_crear_nodo(val));
 
-  if (key < node->key)
-  node->left  = bst_insert(node->left, key);
-  else if (key > node->key)
-  node->right = bst_insert(node->right, key);
-  else // Equal keys are not allowed in BST
+  if (val < node->val)
+  node->left  = bst_insert(node->left, val);
+  else if (val > node->val)
+  node->right = bst_insert(node->right, val);
+  else // Equal vals are not allowed in BST
   return node;
 
   /* 2. Update height of this ancestor node */
@@ -126,22 +121,22 @@ avlNode* bst_insert(avlNode* node, int key) {
   // there are 4 cases
 
   // Left Left Case
-  if (balance > 1 && key < node->left->key)
+  if (balance > 1 && val < node->left->val)
   return bst_right_rotate(node);
 
   // Right Right Case
-  if (balance < -1 && key > node->right->key)
+  if (balance < -1 && val > node->right->val)
   return bst_left_rotate(node);
 
   // Left Right Case
-  if (balance > 1 && key > node->left->key)
+  if (balance > 1 && val > node->left->val)
   {
     node->left =  bst_left_rotate(node->left);
     return bst_right_rotate(node);
   }
 
   // Right Left Case
-  if (balance < -1 && key < node->right->key)
+  if (balance < -1 && val < node->right->val)
   {
     node->right = bst_right_rotate(node->right);
     return bst_left_rotate(node);
@@ -155,9 +150,9 @@ avlNode* bst_buscar(avlNode **r, int val) {
   if ((*r) == NULL) {
     cout << "\nNodo no encontrado";
     return NULL;
-  } else if ((*r)->key < val) {
+  } else if ((*r)->val < val) {
     return bst_buscar(&(*r)->right, val);
-  } else if ((*r)->key > val) {
+  } else if ((*r)->val > val) {
     return bst_buscar(&(*r)->left, val);
   } else {
     return (*r);
@@ -175,23 +170,23 @@ avlNode* bst_min_value_node(avlNode* node) {
   return current;
 }
 
-avlNode* bst_delete( avlNode* root, int key) {
+avlNode* bst_delete( avlNode* root, int val) {
   // STEP 1: PERFORM STANDARD BST DELETE
 
   if (root == NULL)
   return root;
 
-  // If the key to be deleted is smaller than the
-  // root's key, then it lies in left subtree
-  if ( key < root->key )
-  root->left = bst_delete(root->left, key);
+  // If the val to be deleted is smaller than the
+  // root's val, then it lies in left subtree
+  if ( val < root->val )
+  root->left = bst_delete(root->left, val);
 
-  // If the key to be deleted is greater than the
-  // root's key, then it lies in right subtree
-  else if( key > root->key )
-  root->right = bst_delete(root->right, key);
+  // If the val to be deleted is greater than the
+  // root's val, then it lies in right subtree
+  else if( val > root->val )
+  root->right = bst_delete(root->right, val);
 
-  // if key is same as root's key, then This is
+  // if val is same as root's val, then This is
   // the node to be deleted
   else
   {
@@ -219,10 +214,10 @@ avlNode* bst_delete( avlNode* root, int key) {
       avlNode* temp = bst_min_value_node(root->right);
 
       // Copy the inorder successor's data to this node
-      root->key = temp->key;
+      root->val = temp->val;
 
       // Delete the inorder successor
-      root->right = bst_delete(root->right, temp->key);
+      root->right = bst_delete(root->right, temp->val);
     }
   }
 
@@ -264,3 +259,5 @@ avlNode* bst_delete( avlNode* root, int key) {
 
   return root;
 }
+
+#endif

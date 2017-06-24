@@ -1,3 +1,6 @@
+#ifndef GENERAR_H
+#define GENERAR_H
+
 int generar_numero();
 hashNode** generar_hash(int n, int m);
 avlNode* generar_bst(int n);
@@ -54,3 +57,5 @@ int generar_numero() {
   srand(time(NULL));
   return rand()%dim;
 }
+
+#endif

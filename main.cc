@@ -23,6 +23,9 @@ int main(int argc, char const *argv[]) {
 
   int n = atoi(argv[1]);
 
+  file_clear("insercion");
+  file_clear("eliminacion");
+
   file_write("insercion", "BST");
   start_time();
   avlNode *tree = NULL;

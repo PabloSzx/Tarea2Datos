@@ -1,9 +1,12 @@
+#ifndef LISTA_H
+#define LISTA_H
+
 #include <stdlib.h>
 
 using namespace std;
 
 typedef struct nodoLista {
-  int n;
+  int val;
   struct nodoLista *prev;
   struct nodoLista *next;
 }nodoLista;
@@ -22,7 +25,7 @@ lista* lista_crear() {
 
 void lista_insertar(lista **lista, int number) {
   nodoLista *n = (nodoLista *)malloc(sizeof(nodoLista));
-  n->n = number;
+  n->val = number;
   if ((*lista)->start == NULL) {
     n->next = NULL;
     n->prev = NULL;
@@ -46,7 +49,7 @@ void lista_imprimir(lista *lista) {
     if (ptr->prev != NULL) {
       cout << "| <- |";
     }
-    cout << ptr->n << "-";
+    cout << ptr->val << "-";
     if (ptr->next != NULL) {
       cout << "| -> |";
     }
@@ -60,7 +63,7 @@ nodoLista* lista_buscar(lista **lista, int x) {
   nodoLista *ptr = (*lista)->start;
 
   while (ptr != NULL) {
-    if (ptr->n == x) {
+    if (ptr->val == x) {
       return ptr;
     }
 
@@ -89,3 +92,5 @@ void lista_eliminar(nodoLista **nodo) {
     }
   }
 }
+
+#endif

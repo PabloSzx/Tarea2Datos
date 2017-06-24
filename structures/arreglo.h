@@ -1,3 +1,6 @@
+#ifndef ARREGLO_H
+#define ARREGLO_H
+
 #include <stdlib.h>
 
 using namespace std;
@@ -42,3 +45,5 @@ void arreglo_print(int *arreglo, int n) {
 
   cout << "]" << endl;;
 }
+
+#endif

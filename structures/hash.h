@@ -1,10 +1,12 @@
+#ifndef HASH_H
+#define HASH_H
+
 #include <stdlib.h>
 
 typedef struct hashNode{
   int val;
   struct hashNode* next;
   struct hashNode* prev;
-
 } hashNode;
 
 hashNode* hash_crear_nodo(int x){
@@ -149,3 +151,5 @@ int hash_exists(hashNode **ht, int x){
   }
   return 0;
 }
+
+#endif

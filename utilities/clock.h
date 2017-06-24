@@ -1,3 +1,7 @@
+#ifndef CLOCK_H
+#define CLOCK_H
+
+
 using namespace std;
 
 clock_t start;
@@ -12,3 +16,5 @@ void end_time(const char* str, const char* file) {
   file_write(file, duration);
   cout << str << " se demoró: " << duration << " segundos." << endl;
 }
+
+#endif

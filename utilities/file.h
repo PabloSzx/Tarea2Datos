@@ -1,3 +1,6 @@
+#ifndef FILE_H
+#define FILE_H
+
 #include <fstream>
 
 using namespace std;
@@ -21,3 +24,5 @@ void file_write(const char* file, double n) {
   myfile << n << "\n";
   myfile.close();
 }
+
+#endif
