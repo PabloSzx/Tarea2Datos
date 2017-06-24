@@ -76,7 +76,7 @@ int main(int argc, char const *argv[]) {
   //
   // cout << endl << endl;
   // start_time_count(&start);
-  // postOrder(generarBst(n));
+  // bst_print(generarBst(n));
   // calculate_duration(&start, &end, 2);
   //
   // cout << endl << endl;
@@ -104,25 +104,25 @@ int main(int argc, char const *argv[]) {
 
   avlNode *tree = NULL;
 
-  tree = avlInsert(tree, 1);
-  tree = avlInsert(tree, 3);
-  tree = avlInsert(tree, 2);
-  tree = avlInsert(tree, 5);
-  tree = avlInsert(tree, 8);
-  tree = avlInsert(tree, 4);
-  tree = avlInsert(tree, 10);
-  tree = avlInsert(tree, 12);
-  tree = avlInsert(tree, 14);
-  tree = avlInsert(tree, 16);
-  tree = avlInsert(tree, 20);
-  postOrder(tree);
+  tree = bst_insert(tree, 1);
+  tree = bst_insert(tree, 3);
+  tree = bst_insert(tree, 2);
+  tree = bst_insert(tree, 5);
+  tree = bst_insert(tree, 8);
+  tree = bst_insert(tree, 4);
+  tree = bst_insert(tree, 10);
+  tree = bst_insert(tree, 12);
+  tree = bst_insert(tree, 14);
+  tree = bst_insert(tree, 16);
+  tree = bst_insert(tree, 20);
+  bst_print(tree);
 
   cout << "eliminar valor 5" << endl;
-  tree = deleteAvlNode(tree, 5);
+  tree = bst_delete(tree, 5);
   // tree = bst_eliminar(bst_buscar(&tree, 20));
   // cout << bst_buscar(&tree, 10)->key;
 
-  postOrder(tree);
+  bst_print(tree);
 
   return 0;
 }
@@ -145,7 +145,7 @@ avlNode* generarBst(int n) {
   avlNode *bst = NULL;
 
   for(int i = 0; i < n;i++){
-    bst = avlInsert(bst, getRandomNumber());
+    bst = bst_insert(bst, getRandomNumber());
   }
 
   return bst;

@@ -14,7 +14,7 @@ struct avlNode
 int max(int a, int b);
 
 // A utility function to get height of the tree
-int height(avlNode *N)
+int bst_height(avlNode *N)
 {
   if (N == NULL)
   return 0;
@@ -29,7 +29,7 @@ int max(int a, int b)
 
 /* Helper function that allocates a new node with the given key and
 NULL left and right pointers. */
-avlNode* newAvlNode(int key)
+avlNode* bst_crear_nodo(int key)
 {
   avlNode* node = (avlNode*)
   malloc(sizeof(avlNode));
@@ -40,12 +40,12 @@ avlNode* newAvlNode(int key)
   return(node);
 }
 
-void postOrder(avlNode* p, int indent = 0)
+void bst_print(avlNode* p, int indent = 0)
 
 {
   if(p != NULL) {
     if(p->right) {
-      postOrder(p->right, indent+4);
+      bst_print(p->right, indent+4);
     }
     if (indent) {
       cout << setw(indent) << ' ';
@@ -54,7 +54,7 @@ void postOrder(avlNode* p, int indent = 0)
     cout<< p->key << "\n ";
     if(p->left) {
       cout << setw(indent) << ' ' <<" \\\n";
-      postOrder(p->left, indent+4);
+      bst_print(p->left, indent+4);
     }
   }
 }
@@ -62,7 +62,7 @@ void postOrder(avlNode* p, int indent = 0)
 
 // A utility function to right rotate subtree rooted with y
 // See the diagram given above.
-avlNode *rightRotate(avlNode *y)
+avlNode *bst_right_rotate(avlNode *y)
 {
   avlNode *x = y->left;
   avlNode *T2 = x->right;
@@ -72,8 +72,8 @@ avlNode *rightRotate(avlNode *y)
   y->left = T2;
 
   // Update heights
-  y->height = max(height(y->left), height(y->right))+1;
-  x->height = max(height(x->left), height(x->right))+1;
+  y->height = max(bst_height(y->left), bst_height(y->right))+1;
+  x->height = max(bst_height(x->left), bst_height(x->right))+1;
 
   // Return new root
   return x;
@@ -81,7 +81,7 @@ avlNode *rightRotate(avlNode *y)
 
 // A utility function to left rotate subtree rooted with x
 // See the diagram given above.
-avlNode *leftRotate(avlNode *x)
+avlNode *bst_left_rotate(avlNode *x)
 {
   avlNode *y = x->right;
   avlNode *T2 = y->left;
@@ -91,68 +91,68 @@ avlNode *leftRotate(avlNode *x)
   x->right = T2;
 
   //  Update heights
-  x->height = max(height(x->left), height(x->right))+1;
-  y->height = max(height(y->left), height(y->right))+1;
+  x->height = max(bst_height(x->left), bst_height(x->right))+1;
+  y->height = max(bst_height(y->left), bst_height(y->right))+1;
 
   // Return new root
   return y;
 }
 
 // Get Balance factor of node N
-int getBalance(avlNode *N)
+int bst_get_balance(avlNode *N)
 {
   if (N == NULL)
   return 0;
-  return height(N->left) - height(N->right);
+  return bst_height(N->left) - bst_height(N->right);
 }
 
 // Recursive function to insert key in subtree rooted
 // with node and returns new root of subtree.
-avlNode* avlInsert(avlNode* node, int key)
+avlNode* bst_insert(avlNode* node, int key)
 {
   /* 1.  Perform the normal BST insertion */
   if (node == NULL)
-  return(newAvlNode(key));
+  return(bst_crear_nodo(key));
 
   if (key < node->key)
-  node->left  = avlInsert(node->left, key);
+  node->left  = bst_insert(node->left, key);
   else if (key > node->key)
-  node->right = avlInsert(node->right, key);
+  node->right = bst_insert(node->right, key);
   else // Equal keys are not allowed in BST
   return node;
 
   /* 2. Update height of this ancestor node */
-  node->height = 1 + max(height(node->left),
-  height(node->right));
+  node->height = 1 + max(bst_height(node->left),
+  bst_height(node->right));
 
   /* 3. Get the balance factor of this ancestor
   node to check whether this node became
   unbalanced */
-  int balance = getBalance(node);
+  int balance = bst_get_balance(node);
 
   // If this node becomes unbalanced, then
   // there are 4 cases
 
   // Left Left Case
   if (balance > 1 && key < node->left->key)
-  return rightRotate(node);
+  return bst_right_rotate(node);
 
   // Right Right Case
   if (balance < -1 && key > node->right->key)
-  return leftRotate(node);
+  return bst_left_rotate(node);
 
   // Left Right Case
   if (balance > 1 && key > node->left->key)
   {
-    node->left =  leftRotate(node->left);
-    return rightRotate(node);
+    node->left =  bst_left_rotate(node->left);
+    return bst_right_rotate(node);
   }
 
   // Right Left Case
   if (balance < -1 && key < node->right->key)
   {
-    node->right = rightRotate(node->right);
-    return leftRotate(node);
+    node->right = bst_right_rotate(node->right);
+    return bst_left_rotate(node);
   }
 
   /* return the (unchanged) node pointer */
@@ -164,16 +164,16 @@ avlNode* bst_buscar(avlNode **r, int val){
     cout << "\nNodo no encontrado";
     return NULL;
   } else if ((*r)->key < val) {
-    return bst_buscar((*r)->right, val);
+    return bst_buscar(&(*r)->right, val);
   } else if ((*r)->key > val) {
-    return bst_buscar((*r)->left, val);
+    return bst_buscar(&(*r)->left, val);
   } else {
     return (*r);
   }
 }
 
 
-avlNode* minValueAvlNode(avlNode* node)
+avlNode* bst_min_value_node(avlNode* node)
 {
   avlNode* current = node;
 
@@ -184,7 +184,7 @@ avlNode* minValueAvlNode(avlNode* node)
   return current;
 }
 
-avlNode* deleteAvlNode( avlNode* root, int key) {
+avlNode* bst_delete( avlNode* root, int key) {
   // STEP 1: PERFORM STANDARD BST DELETE
 
   if (root == NULL)
@@ -193,12 +193,12 @@ avlNode* deleteAvlNode( avlNode* root, int key) {
   // If the key to be deleted is smaller than the
   // root's key, then it lies in left subtree
   if ( key < root->key )
-  root->left = deleteAvlNode(root->left, key);
+  root->left = bst_delete(root->left, key);
 
   // If the key to be deleted is greater than the
   // root's key, then it lies in right subtree
   else if( key > root->key )
-  root->right = deleteAvlNode(root->right, key);
+  root->right = bst_delete(root->right, key);
 
   // if key is same as root's key, then This is
   // the node to be deleted
@@ -225,13 +225,13 @@ avlNode* deleteAvlNode( avlNode* root, int key) {
     {
       // node with two children: Get the inorder
       // successor (smallest in the right subtree)
-      avlNode* temp = minValueAvlNode(root->right);
+      avlNode* temp = bst_min_value_node(root->right);
 
       // Copy the inorder successor's data to this node
       root->key = temp->key;
 
       // Delete the inorder successor
-      root->right = deleteAvlNode(root->right, temp->key);
+      root->right = bst_delete(root->right, temp->key);
     }
   }
 
@@ -240,35 +240,35 @@ avlNode* deleteAvlNode( avlNode* root, int key) {
   return root;
 
   // STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
-  root->height = 1 + max(height(root->left),
-  height(root->right));
+  root->height = 1 + max(bst_height(root->left),
+  bst_height(root->right));
 
   // STEP 3: GET THE BALANCE FACTOR OF THIS NODE (to
   // check whether this node became unbalanced)
-  int balance = getBalance(root);
+  int balance = bst_get_balance(root);
 
   // If this node becomes unbalanced, then there are 4 cases
 
   // Left Left Case
-  if (balance > 1 && getBalance(root->left) >= 0)
-  return rightRotate(root);
+  if (balance > 1 && bst_get_balance(root->left) >= 0)
+  return bst_right_rotate(root);
 
   // Left Right Case
-  if (balance > 1 && getBalance(root->left) < 0)
+  if (balance > 1 && bst_get_balance(root->left) < 0)
   {
-    root->left =  leftRotate(root->left);
-    return rightRotate(root);
+    root->left =  bst_left_rotate(root->left);
+    return bst_right_rotate(root);
   }
 
   // Right Right Case
-  if (balance < -1 && getBalance(root->right) <= 0)
-  return leftRotate(root);
+  if (balance < -1 && bst_get_balance(root->right) <= 0)
+  return bst_left_rotate(root);
 
   // Right Left Case
-  if (balance < -1 && getBalance(root->right) > 0)
+  if (balance < -1 && bst_get_balance(root->right) > 0)
   {
-    root->right = rightRotate(root->right);
-    return leftRotate(root);
+    root->right = bst_right_rotate(root->right);
+    return bst_left_rotate(root);
   }
 
   return root;

@@ -1,6 +1,3 @@
-#ifndef HASH_H
-#define HASH_H
-
 typedef struct hashNode{
   int val;
   struct hashNode* next;
@@ -8,7 +5,7 @@ typedef struct hashNode{
 
 } hashNode;
 
-hashNode* crear_nodo(int x){
+hashNode* hash_crear_nodo(int x){
   hashNode *aux = (hashNode*)malloc(sizeof(hashNode));
   aux->val = x;
   aux->next = NULL;
@@ -22,11 +19,11 @@ int a, b, p, m;
 //   return x % m;
 // }
 //
-int h2(int x){
+int hash_function(int x){
   return (( (a*x + b) % p) % m);
 }
 
-int esprimo(int n){
+int hash_es_primo(int n){
   int i,root;
   if (n%2 == 0 || n%3 == 0)
   return 0;
@@ -61,17 +58,17 @@ void hash_print(hashNode **ht, int m){
 
 
 // 1) encuentra el menor primo mayor que m
-int mprimo(int n){
+int hash_mprimo(int n){
   int c = n;
-  while (!esprimo(c)) {
+  while (!hash_es_primo(c)) {
     c += 1;
   }
   return c;
 }
 
-void gen_hashfunc(int n){
+void hash_gen_function(int n){
   m = n;
-  p = mprimo(n);
+  p = hash_mprimo(n);
   a = (rand() % p) + 1;
   b = rand() % p;
 }
@@ -80,9 +77,9 @@ void gen_hashfunc(int n){
 
 // 3) inserta un elemento x en ht donde corresponde
 void hash_insert(hashNode **ht, int x){
-  int pos = h2(x);
+  int pos = hash_function(x);
 
-  hashNode *n = crear_nodo(x);
+  hashNode *n = hash_crear_nodo(x);
 
   hashNode **ptr = &ht[pos];
 
@@ -103,7 +100,7 @@ void hash_insert(hashNode **ht, int x){
 }
 
 hashNode* hash_buscar(hashNode **ht, int x) {
-  int pos = h2(x);
+  int pos = hash_function(x);
 
   hashNode *ptr = ht[pos];
 
@@ -140,7 +137,7 @@ void hash_eliminar(hashNode **nodo) {
 // 4) retorna 1 si x existe en ht, de lo contrario 0
 int hash_exists(hashNode **ht, int x){
   // int pos = h1(x);
-  int pos = h2(x);
+  int pos = hash_function(x);
   hashNode *aux = ht[pos];
   while (aux != NULL) {
     if (aux->val == x) {
@@ -150,7 +147,3 @@ int hash_exists(hashNode **ht, int x){
   }
   return 0;
 }
-
-
-
-#endif
