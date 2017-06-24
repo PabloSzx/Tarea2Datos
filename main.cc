@@ -2,52 +2,17 @@
 #include <iostream>
 #include <iomanip>
 #include <math.h>
+#include <stddef.h>
 #include <time.h>
 #include <ctime>
-#include <stddef.h>
+#include "clock.h"
 #include "arreglo.h"
 #include "avl.h"
 #include "lista.h"
 #include "hash.h"
 
 int dim=1000000;
-int seed;
 
-void start_time_count(clock_t* start) {
-  (*start) = clock();
-}
-
-void calculate_duration(clock_t* start, clock_t* end, int tipo) {
-  // cout << CLOCKS_PER_SEC << endl;
-  (*end) = clock();
-
-  double duration = ((*end) - (*start)) / (double) CLOCKS_PER_SEC;
-
-  switch (tipo) {
-    case 0:
-    {
-      cout << "Generar el arreglo";
-      break;
-    }
-    case 1:
-    {
-      cout << "Generar la lista";
-      break;
-    }
-    case 2:
-    {
-      cout << "Generar el bst";
-      break;
-    }
-    case 3:
-    {
-      cout << "Generar el hash";
-      break;
-    }
-  }
-  cout << " se demoró: " << duration << endl;
-
-}
 
 hashNode** generarHash(int n, int m);
 avlNode* generarBst(int n);
@@ -62,13 +27,8 @@ int main(int argc, char const *argv[]) {
     exit(EXIT_FAILURE);
   }
 
-  clock_t start;
-  clock_t end;
-
   int n = atoi(argv[1]);
 
-  seed = time(NULL);
-  srand(seed);
 
   // start_time_count(&start);
   // int *arreglo = generarArreglo(n);
@@ -103,6 +63,7 @@ int main(int argc, char const *argv[]) {
   //
   // hash_insert(ht, 10)
 
+  start_time();
   avlNode *tree = NULL;
 
   tree = bst_insert(tree, 1);
@@ -125,6 +86,8 @@ int main(int argc, char const *argv[]) {
 
   bst_print(tree);
 
+  end_time("Insertar y eliminar en bst");
+
   return 0;
 }
 
@@ -133,7 +96,7 @@ hashNode** generarHash(int n, int m) {
   for(int i=0; i < m; i++){
     ht[i] = NULL;
   }
-  gen_hashfunc(m);
+  hash_gen_function(m);
 
   for(int i = 0; i < n; i++){
     hash_insert(ht, getRandomNumber());
@@ -172,5 +135,7 @@ int* generarArreglo(int n) {
 }
 
 int getRandomNumber() {
+  srand(time(NULL));
+
   return rand()%dim;
 }
