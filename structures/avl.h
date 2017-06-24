@@ -22,15 +22,13 @@ int bst_height(avlNode *N)
 }
 
 // A utility function to get maximum of two integers
-int max(int a, int b)
-{
+int max(int a, int b) {
   return (a > b)? a : b;
 }
 
 /* Helper function that allocates a new node with the given key and
 NULL left and right pointers. */
-avlNode* bst_crear_nodo(int key)
-{
+avlNode* bst_crear_nodo(int key) {
   avlNode* node = (avlNode*)
   malloc(sizeof(avlNode));
   node->key   = key;
@@ -40,9 +38,7 @@ avlNode* bst_crear_nodo(int key)
   return(node);
 }
 
-void bst_print(avlNode* p, int indent = 0)
-
-{
+void bst_print(avlNode* p, int indent = 0) {
   if(p != NULL) {
     if(p->right) {
       bst_print(p->right, indent+4);
@@ -62,8 +58,7 @@ void bst_print(avlNode* p, int indent = 0)
 
 // A utility function to right rotate subtree rooted with y
 // See the diagram given above.
-avlNode *bst_right_rotate(avlNode *y)
-{
+avlNode *bst_right_rotate(avlNode *y) {
   avlNode *x = y->left;
   avlNode *T2 = x->right;
 
@@ -81,8 +76,7 @@ avlNode *bst_right_rotate(avlNode *y)
 
 // A utility function to left rotate subtree rooted with x
 // See the diagram given above.
-avlNode *bst_left_rotate(avlNode *x)
-{
+avlNode *bst_left_rotate(avlNode *x) {
   avlNode *y = x->right;
   avlNode *T2 = y->left;
 
@@ -99,8 +93,7 @@ avlNode *bst_left_rotate(avlNode *x)
 }
 
 // Get Balance factor of node N
-int bst_get_balance(avlNode *N)
-{
+int bst_get_balance(avlNode *N) {
   if (N == NULL)
   return 0;
   return bst_height(N->left) - bst_height(N->right);
@@ -108,8 +101,7 @@ int bst_get_balance(avlNode *N)
 
 // Recursive function to insert key in subtree rooted
 // with node and returns new root of subtree.
-avlNode* bst_insert(avlNode* node, int key)
-{
+avlNode* bst_insert(avlNode* node, int key) {
   /* 1.  Perform the normal BST insertion */
   if (node == NULL)
   return(bst_crear_nodo(key));
@@ -159,7 +151,7 @@ avlNode* bst_insert(avlNode* node, int key)
   return node;
 }
 
-avlNode* bst_buscar(avlNode **r, int val){
+avlNode* bst_buscar(avlNode **r, int val) {
   if ((*r) == NULL) {
     cout << "\nNodo no encontrado";
     return NULL;
@@ -173,8 +165,7 @@ avlNode* bst_buscar(avlNode **r, int val){
 }
 
 
-avlNode* bst_min_value_node(avlNode* node)
-{
+avlNode* bst_min_value_node(avlNode* node) {
   avlNode* current = node;
 
   /* loop down to find the leftmost leaf */
