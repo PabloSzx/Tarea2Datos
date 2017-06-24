@@ -1,8 +1,8 @@
 #ifndef CLOCK_H
 #define CLOCK_H
 
-
-using namespace std;
+void start_time();
+void end_time(const char* str, const char* file);
 
 clock_t start;
 

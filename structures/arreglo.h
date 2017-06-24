@@ -1,9 +1,11 @@
 #ifndef ARREGLO_H
 #define ARREGLO_H
 
-#include <stdlib.h>
-
-using namespace std;
+int* arreglo_crear(int n);
+void arreglo_insert(int *arreglo, int i, int x);
+int arreglo_buscar(int *arreglo, int x, int n);
+void arreglo_delete(int *arreglo, int pos);
+void arreglo_print(int *arreglo, int n);
 
 int* arreglo_crear(int n) {
   int *arreglo=(int*)malloc(sizeof(int)*n);

@@ -1,10 +1,6 @@
 #ifndef LISTA_H
 #define LISTA_H
 
-#include <stdlib.h>
-
-using namespace std;
-
 typedef struct nodoLista {
   int val;
   struct nodoLista *prev;
@@ -15,6 +11,12 @@ typedef struct lista {
   nodoLista *start;
   int length;
 } lista;
+
+lista* lista_crear();
+void lista_insertar(lista **lista, int number);
+void lista_imprimir(lista *lista);
+nodoLista* lista_buscar(lista **lista, int x);
+void lista_eliminar(nodoLista **nodo);
 
 lista* lista_crear() {
   lista *l = (lista*)malloc(sizeof(lista));

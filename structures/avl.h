@@ -1,9 +1,6 @@
 #ifndef AVL_H
 #define AVL_H
 
-#include <stdlib.h>
-
-using namespace std;
 // An AVL tree node
 struct avlNode
 {
@@ -13,9 +10,19 @@ struct avlNode
   int height;
 };
 
+int bst_height(avlNode *N);
+avlNode* bst_crear_nodo(int val);
+void bst_print(avlNode* p, int indent);
+avlNode *bst_right_rotate(avlNode *y);
+avlNode *bst_left_rotate(avlNode *x);
+int bst_get_balance(avlNode *N);
+avlNode* bst_insert(avlNode* node, int val);
+avlNode* bst_buscar(avlNode **r, int val);
+avlNode* bst_min_value_node(avlNode* node);
+avlNode* bst_delete( avlNode* root, int val);
+
 // A utility function to get height of the tree
-int bst_height(avlNode *N)
-{
+int bst_height(avlNode *N) {
   if (N == NULL)
   return 0;
   return N->height;

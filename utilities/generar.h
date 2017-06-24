@@ -9,7 +9,6 @@ int* generar_arreglo(int n);
 
 int dim=1000000;
 
-
 hashNode** generar_hash(int n, int m) {
   hashNode **ht = (hashNode**)malloc(sizeof(hashNode*)*m);
   for(int i=0; i < m; i++){

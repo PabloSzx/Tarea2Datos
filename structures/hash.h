@@ -1,15 +1,27 @@
 #ifndef HASH_H
 #define HASH_H
 
-#include <stdlib.h>
-
 typedef struct hashNode{
   int val;
   struct hashNode* next;
   struct hashNode* prev;
 } hashNode;
 
-hashNode* hash_crear_nodo(int x){
+hashNode* hash_crear_nodo(int x);
+
+int hash_function(int x);
+int hash_es_primo(int n);
+void hash_print(hashNode **ht, int m);
+int hash_mprimo(int n);
+void hash_gen_function(int n);
+void hash_insert(hashNode **ht, int x);
+hashNode* hash_buscar(hashNode **ht, int x);
+void hash_eliminar(hashNode **nodo);
+int hash_exists(hashNode **ht, int x);
+
+int a, b, p, m;
+
+hashNode* hash_crear_nodo(int x) {
   hashNode *aux = (hashNode*)malloc(sizeof(hashNode));
   aux->val = x;
   aux->next = NULL;
@@ -17,17 +29,11 @@ hashNode* hash_crear_nodo(int x){
   return aux;
 }
 
-int a, b, p, m;
-
-// int h1(int x){
-//   return x % m;
-// }
-//
-int hash_function(int x){
+int hash_function(int x) {
   return (( (a*x + b) % p) % m);
 }
 
-int hash_es_primo(int n){
+int hash_es_primo(int n) {
   int i,root;
   if (n%2 == 0 || n%3 == 0)
   return 0;
@@ -44,7 +50,7 @@ int hash_es_primo(int n){
   return 1;
 }
 
-void hash_print(hashNode **ht, int m){
+void hash_print(hashNode **ht, int m) {
   for(int i=0; i<m; ++i) {
     hashNode *aux = ht[i];
     cout << "ht[" << i << "] = ";
@@ -62,7 +68,7 @@ void hash_print(hashNode **ht, int m){
 
 
 // 1) encuentra el menor primo mayor que m
-int hash_mprimo(int n){
+int hash_mprimo(int n) {
   int c = n;
   while (!hash_es_primo(c)) {
     c += 1;
@@ -70,7 +76,7 @@ int hash_mprimo(int n){
   return c;
 }
 
-void hash_gen_function(int n){
+void hash_gen_function(int n) {
   m = n;
   p = hash_mprimo(n);
   a = (rand() % p) + 1;
@@ -80,7 +86,7 @@ void hash_gen_function(int n){
 
 
 // 3) inserta un elemento x en ht donde corresponde
-void hash_insert(hashNode **ht, int x){
+void hash_insert(hashNode **ht, int x) {
   int pos = hash_function(x);
 
   hashNode *n = hash_crear_nodo(x);
@@ -139,7 +145,7 @@ void hash_eliminar(hashNode **nodo) {
 }
 
 // 4) retorna 1 si x existe en ht, de lo contrario 0
-int hash_exists(hashNode **ht, int x){
+int hash_exists(hashNode **ht, int x) {
   // int pos = h1(x);
   int pos = hash_function(x);
   hashNode *aux = ht[pos];
