@@ -11,13 +11,13 @@ struct avlNode
 };
 
 int bst_height(avlNode *N);
-avlNode* bst_crear_nodo(int val);
+avlNode* bst_create(int val);
 void bst_print(avlNode* p, int indent);
 avlNode *bst_right_rotate(avlNode *y);
 avlNode *bst_left_rotate(avlNode *x);
 int bst_get_balance(avlNode *N);
 avlNode* bst_insert(avlNode* node, int val);
-avlNode* bst_buscar(avlNode **r, int val);
+avlNode* bst_search(avlNode **r, int val);
 avlNode* bst_min_value_node(avlNode* node);
 avlNode* bst_delete( avlNode* root, int val);
 
@@ -30,7 +30,7 @@ int bst_height(avlNode *N) {
 
 /* Helper function that allocates a new node with the given val and
 NULL left and right pointers. */
-avlNode* bst_crear_nodo(int val) {
+avlNode* bst_create(int val) {
   avlNode* node = (avlNode*)
   malloc(sizeof(avlNode));
   node->val   = val;
@@ -106,7 +106,7 @@ int bst_get_balance(avlNode *N) {
 avlNode* bst_insert(avlNode* node, int val) {
   /* 1.  Perform the normal BST insertion */
   if (node == NULL)
-  return(bst_crear_nodo(val));
+  return(bst_create(val));
 
   if (val < node->val)
   node->left  = bst_insert(node->left, val);
@@ -153,14 +153,14 @@ avlNode* bst_insert(avlNode* node, int val) {
   return node;
 }
 
-avlNode* bst_buscar(avlNode **r, int val) {
+avlNode* bst_search(avlNode **r, int val) {
   if ((*r) == NULL) {
     cout << "\nNodo no encontrado";
     return NULL;
   } else if ((*r)->val < val) {
-    return bst_buscar(&(*r)->right, val);
+    return bst_search(&(*r)->right, val);
   } else if ((*r)->val > val) {
-    return bst_buscar(&(*r)->left, val);
+    return bst_search(&(*r)->left, val);
   } else {
     return (*r);
   }

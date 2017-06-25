@@ -22,9 +22,9 @@ hashNode** generar_hash(int n, int m) {
 
   for(int i = 0; i < n; i++){
     number = generar_numero();
-    start_time();
+    clock_start();
     hash_insert(ht, number);
-    end_time();
+    clock_end();
   }
 
   return ht;
@@ -37,46 +37,45 @@ avlNode* generar_bst(int n) {
 
   for(int i = 0; i < n;i++){
     number = generar_numero();
-    start_time();
+    clock_start();
     bst = bst_insert(bst, number);
-    end_time();
+    clock_end();
   }
 
   return bst;
 }
 
 lista* generar_lista(int n) {
-  lista *list = lista_crear();
+  lista *list = lista_create();
 
   file_write("--lista--");
 
   for(int i = 0; i < n;i++){
     number = generar_numero();
-    start_time();
-    lista_insertar(&list, number);
-    end_time();
+    clock_start();
+    lista_insert(&list, number);
+    clock_end();
   }
 
   return list;
 }
 
 int* generar_arreglo(int n) {
-  int *arreglo = arreglo_crear(n);
+  int *arreglo = arreglo_create(n);
 
   file_write("--arreglo--");
 
   for(int i = 0; i < n;i++){
     number = generar_numero();
-    start_time();
+    clock_start();
     arreglo_insert(arreglo, i, number);
-    end_time();
+    clock_end();
   }
 
   return arreglo;
 }
 
 int generar_numero() {
-  srand(time(NULL));
   return rand()%dim;
 }
 

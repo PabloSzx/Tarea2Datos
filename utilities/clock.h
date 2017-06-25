@@ -1,28 +1,28 @@
 #ifndef CLOCK_H
 #define CLOCK_H
 
-void start_time();
-void start_time(clock_t n);
-void end_time();
-void end_time(const char* str);
+void clock_start();
+void clock_start(clock_t n);
+void clock_end();
+void clock_end(const char* str);
 
 clock_t start;
 
-void start_time() {
+void clock_start() {
   start = clock();
 }
 
-void start_time(clock_t n) {
+void clock_start(clock_t n) {
   start = n;
 }
 
-void end_time() {
+void clock_end() {
   double duration = (clock() - start) / (double) CLOCKS_PER_SEC;
 
   file_write(duration);
 }
 
-void end_time(const char* str) {
+void clock_end(const char* str) {
   double duration = (clock() - start) / (double) CLOCKS_PER_SEC;
 
   cout << str << " se demoró: " << duration << " segundos." << endl;

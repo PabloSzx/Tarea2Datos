@@ -7,21 +7,20 @@ typedef struct hashNode{
   struct hashNode* prev;
 } hashNode;
 
-hashNode* hash_crear_nodo(int x);
-
+hashNode* hash_create(int x);
 int hash_function(int x);
 int hash_es_primo(int n);
 void hash_print(hashNode **ht, int m);
 int hash_mprimo(int n);
 void hash_gen_function(int n);
 void hash_insert(hashNode **ht, int x);
-hashNode* hash_buscar(hashNode **ht, int x);
-void hash_eliminar(hashNode **nodo);
+hashNode* hash_search(hashNode **ht, int x);
+void hash_delete(hashNode **nodo);
 int hash_exists(hashNode **ht, int x);
 
 int a, b, p, m;
 
-hashNode* hash_crear_nodo(int x) {
+hashNode* hash_create(int x) {
   hashNode *aux = (hashNode*)malloc(sizeof(hashNode));
   aux->val = x;
   aux->next = NULL;
@@ -53,14 +52,17 @@ int hash_es_primo(int n) {
 void hash_print(hashNode **ht, int m) {
   for(int i=0; i<m; ++i) {
     hashNode *aux = ht[i];
-    cout << "ht[" << i << "] = ";
+    cout << endl << "h[" << i << "] = ";
     // printf("ht[%i] = ", i);
     while(aux != NULL){
-      cout << "(" << aux->val << ") --> ";
+      cout << "(" << aux->val << ")";
+      if (aux->next != NULL) {
+        cout << " --> ";
+      }
       // printf("(%i) --> ", aux->val);
       aux = aux->next;
     }
-    cout << "NULL" << endl;
+    cout << endl;
     // printf("NULL\n");
   }
 }
@@ -89,7 +91,7 @@ void hash_gen_function(int n) {
 void hash_insert(hashNode **ht, int x) {
   int pos = hash_function(x);
 
-  hashNode *n = hash_crear_nodo(x);
+  hashNode *n = hash_create(x);
 
   hashNode **ptr = &ht[pos];
 
@@ -104,12 +106,9 @@ void hash_insert(hashNode **ht, int x) {
     ht[pos] = n;
     // (*lista)->start = n;
   }
-
-  // a->next = aux;
-  // ht[pos] = a;
 }
 
-hashNode* hash_buscar(hashNode **ht, int x) {
+hashNode* hash_search(hashNode **ht, int x) {
   int pos = hash_function(x);
 
   hashNode *ptr = ht[pos];
@@ -124,7 +123,7 @@ hashNode* hash_buscar(hashNode **ht, int x) {
   return NULL;
 }
 
-void hash_eliminar(hashNode **nodo) {
+void hash_delete(hashNode **nodo) {
   if ((*nodo)->next == NULL && (*nodo)->prev == NULL) {
     (*nodo) = NULL;
     // (*lista)->start = NULL;
@@ -146,7 +145,6 @@ void hash_eliminar(hashNode **nodo) {
 
 // 4) retorna 1 si x existe en ht, de lo contrario 0
 int hash_exists(hashNode **ht, int x) {
-  // int pos = h1(x);
   int pos = hash_function(x);
   hashNode *aux = ht[pos];
   while (aux != NULL) {

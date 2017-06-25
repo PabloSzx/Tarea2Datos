@@ -12,56 +12,53 @@ typedef struct lista {
   int length;
 } lista;
 
-lista* lista_crear();
-void lista_insertar(lista **lista, int number);
-void lista_imprimir(lista *lista);
-nodoLista* lista_buscar(lista **lista, int x);
-void lista_eliminar(nodoLista **nodo);
+lista* lista_create();
+void lista_insert(lista **lista, int number);
+void lista_print(lista *lista);
+nodoLista* lista_search(lista **lista, int x);
+void lista_delete(nodoLista **nodo);
 
-lista* lista_crear() {
+lista* lista_create() {
   lista *l = (lista*)malloc(sizeof(lista));
   l->length = 0;
   l->start = NULL;
   return (l);
 }
 
-void lista_insertar(lista **lista, int number) {
+void lista_insert(lista **lista, int number) {
   nodoLista *n = (nodoLista *)malloc(sizeof(nodoLista));
   n->val = number;
   if ((*lista)->start == NULL) {
     n->next = NULL;
     n->prev = NULL;
     (*lista)->start = n;
-    (*lista)->length++;
   } else {
     ((*lista)->start)->prev = n;
     n->next = (*lista)->start;
     (*lista)->start = n;
-    (*lista)->length++;
   }
+
+  (*lista)->length++;
 }
 
-void lista_imprimir(lista *lista) {
-  // cout << "\n El length de la lista es: " << (lista)->length;
-
+void lista_print(lista *lista) {
   nodoLista *ptr = (lista)->start;
-  cout << "\n|";
+
+  cout << endl;
 
   while (ptr != NULL) {
-    if (ptr->prev != NULL) {
-      cout << "| <- |";
-    }
-    cout << ptr->val << "-";
+    cout << "(";
+    cout << ptr->val;
     if (ptr->next != NULL) {
-      cout << "| -> |";
+      cout << ") -> ";
     }
     ptr = ptr->next;
   }
 
-  cout << "|\n";
+  cout << ")" << endl;
 }
 
-nodoLista* lista_buscar(lista **lista, int x) {
+nodoLista* lista_search(lista **lista, int x) {
   nodoLista *ptr = (*lista)->start;
 
   while (ptr != NULL) {
@@ -75,7 +72,7 @@ nodoLista* lista_buscar(lista **lista, int x) {
   return NULL;
 }
 
-void lista_eliminar(nodoLista **nodo) {
+void lista_delete(nodoLista **nodo) {
   if ((*nodo)->next == NULL && (*nodo)->prev == NULL) {
     (*nodo) = NULL;
     // (*lista)->start = NULL;
