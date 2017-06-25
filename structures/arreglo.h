@@ -2,21 +2,26 @@
 #define ARREGLO_H
 
 int* arreglo_create(int n);
-void arreglo_insert(int *arreglo, int i, int x);
-int arreglo_search(int *arreglo, int x, int n);
-void arreglo_delete(int *arreglo, int pos);
-void arreglo_print(int *arreglo, int n);
+void arreglo_insert(int* arreglo, int i, int x, int* n);
+int arreglo_search(int* arreglo, int x, int n);
+void arreglo_delete(int* arreglo, int pos, int* n);
+void arreglo_print(int* arreglo, int n);
 
 int* arreglo_create(int n) {
+  // int* arreglo;
   int *arreglo=(int*)malloc(sizeof(int)*n);
   return arreglo;
 }
 
-void arreglo_insert(int *arreglo, int i, int x) {
+void arreglo_insert(int* arreglo, int i, int x, int* n) {
+  // if (arreglo[i] != 0) {
+  (*n)++;
+  // }
   arreglo[i] = x;
+
 }
 
-int arreglo_search(int *arreglo, int x, int n) {
+int arreglo_search(int* arreglo, int x, int n) {
   int i = 0;
   while (i < n) {
     if (arreglo[i] == x) {
@@ -28,13 +33,34 @@ int arreglo_search(int *arreglo, int x, int n) {
   return -1;
 }
 
-void arreglo_delete(int *arreglo, int pos) {
+void arreglo_delete(int* arreglo, int pos, int *n) {
   if (pos != -1) {
-    arreglo[pos] = 0;
+    int *aux=(int*)malloc(sizeof(int)*(*n - 1));
+
+    int i = 0;
+    int j = 0;
+    while (i != *n) {
+      if (i != pos) {
+        aux[j] = (arreglo)[i];
+        j++;
+      }
+      i++;
+    }
+    (*n) = (*n) - 1;
+
+    copy(aux, aux + *n, arreglo);
   }
+
+
+  // for (size_t i = 0; i < (n - 1); i++) {
+  //   aux[i] = arreglo[]
+  // }
+  // if (pos != -1) {
+  //   arreglo[pos] = 0;
+  // }
 }
 
-void arreglo_print(int *arreglo, int n) {
+void arreglo_print(int* arreglo, int n) {
   cout << "[ ";
   for (int i = 0; i < n; i++) {
     if (arreglo[i] > 0) {

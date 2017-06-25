@@ -16,7 +16,7 @@ lista* lista_create();
 void lista_insert(lista **lista, int number);
 void lista_print(lista *lista);
 nodoLista* lista_search(lista **lista, int x);
-void lista_delete(nodoLista **nodo);
+void lista_delete(nodoLista nodo);
 
 lista* lista_create() {
   lista *l = (lista*)malloc(sizeof(lista));
@@ -72,22 +72,22 @@ nodoLista* lista_search(lista **lista, int x) {
   return NULL;
 }
 
-void lista_delete(nodoLista **nodo) {
-  if ((*nodo)->next == NULL && (*nodo)->prev == NULL) {
-    (*nodo) = NULL;
+void lista_delete(nodoLista *nodo) {
+  if ((nodo)->next == NULL && (nodo)->prev == NULL) {
+    (nodo) = NULL;
     // (*lista)->start = NULL;
   } else {
-    if ((*nodo)->next != NULL) {
-      ((*nodo)->next)->prev = (*nodo)->prev;
+    if ((nodo)->next != NULL) {
+      ((nodo)->next)->prev = (nodo)->prev;
     } else {
-      ((*nodo)->prev)->next = NULL;
+      ((nodo)->prev)->next = NULL;
     }
 
-    if ((*nodo)->prev != NULL) {
-      ((*nodo)->prev)->next = (*nodo)->next;
+    if ((nodo)->prev != NULL) {
+      ((nodo)->prev)->next = (nodo)->next;
     } else {
-      (*nodo) = (*nodo)->next;
-      // (*lista)->start = (*nodo)->next;
+      (nodo) = (nodo)->next;
+      // (*lista)->start = (nodo)->next;
     }
   }
 }

@@ -15,7 +15,7 @@ int hash_mprimo(int n);
 void hash_gen_function(int n);
 void hash_insert(hashNode **ht, int x);
 hashNode* hash_search(hashNode **ht, int x);
-void hash_delete(hashNode **nodo);
+void hash_delete(hashNode ***nodo);
 int hash_exists(hashNode **ht, int x);
 
 int a, b, p, m;
@@ -123,22 +123,22 @@ hashNode* hash_search(hashNode **ht, int x) {
   return NULL;
 }
 
-void hash_delete(hashNode **nodo) {
-  if ((*nodo)->next == NULL && (*nodo)->prev == NULL) {
-    (*nodo) = NULL;
+void hash_delete(hashNode *nodo) {
+  if ((nodo)->next == NULL && (nodo)->prev == NULL) {
+    (nodo) = NULL;
     // (*lista)->start = NULL;
   } else {
-    if ((*nodo)->next != NULL) {
-      ((*nodo)->next)->prev = (*nodo)->prev;
+    if ((nodo)->next != NULL) {
+      ((nodo)->next)->prev = (nodo)->prev;
     } else {
-      ((*nodo)->prev)->next = NULL;
+      ((nodo)->prev)->next = NULL;
     }
 
-    if ((*nodo)->prev != NULL) {
-      ((*nodo)->prev)->next = (*nodo)->next;
+    if ((nodo)->prev != NULL) {
+      ((nodo)->prev)->next = (nodo)->next;
     } else {
-      (*nodo) = (*nodo)->next;
-      // (*lista)->start = (*nodo)->next;
+      (nodo) = (nodo)->next;
+      // (*lista)->start = (nodo)->next;
     }
   }
 }
