@@ -12,7 +12,7 @@ void file_write(double n);
 ofstream myfile;
 
 void file_open(const char* file) {
-  myfile.open(string("./info/") + string(file) + string(".txt"), ofstream::app);
+  myfile.open((string("./info/") + string(file) + string(".txt")).c_str(), ofstream::app);
 }
 
 void file_close() {
@@ -20,7 +20,7 @@ void file_close() {
 }
 
 void file_clear(const char* file) {
-  myfile.open(string("./info/") + string(file) + string(".txt"));
+  myfile.open((string("./info/") + string(file) + string(".txt")).c_str());
   myfile.close();
 }
 
