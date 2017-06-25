@@ -12,42 +12,23 @@ int main(int argc, char const *argv[]) {
   file_clear("insercion");
   file_clear("eliminacion");
 
-  file_write("insercion", "BST");
-  start_time();
-  avlNode *tree = NULL;
+  clock_t one = clock();
 
-  tree = bst_insert(tree, 1);
-  tree = bst_insert(tree, 3);
-  tree = bst_insert(tree, 2);
-  tree = bst_insert(tree, 5);
-  tree = bst_insert(tree, 8);
-  tree = bst_insert(tree, 4);
-  tree = bst_insert(tree, 10);
-  tree = bst_insert(tree, 12);
-  tree = bst_insert(tree, 13);
+  file_open("insercion");
 
-  tree = bst_insert(tree, 14);
-  tree = bst_insert(tree, 16);
-  tree = bst_insert(tree, 20);
-  tree = bst_insert(tree, 22);
-  tree = bst_insert(tree, 32);
-  tree = bst_insert(tree, 42);
+  hashNode** hash = generar_hash(n, sqrt(n));
 
-  end_time("Insertar elementos en bst", "insercion");
+  avlNode* bst = generar_bst(n);
 
-  bst_print(tree);
+  lista* list = generar_lista(n);
 
-  file_write("eliminacion", "Eliminar un elemento en bst");
+  int* arreglo = generar_arreglo(n);
 
-  cout << "eliminar valor 5" << endl;
-  start_time();
+  start_time(one);
+  end_time("Generar todos los arreglos");
+  file_write("--end--");
+  file_close();
 
-  tree = bst_delete(tree, 5);
-
-  end_time("Eliminar elementos en bst", "eliminacion");
-
-  bst_print(tree);
-
-
+  cout << "Terminado" << endl;
   return 0;
 }

@@ -8,16 +8,23 @@ lista* generar_lista(int n);
 int* generar_arreglo(int n);
 
 int dim=1000000;
+int number;
 
 hashNode** generar_hash(int n, int m) {
+
   hashNode **ht = (hashNode**)malloc(sizeof(hashNode*)*m);
   for(int i=0; i < m; i++){
     ht[i] = NULL;
   }
   hash_gen_function(m);
 
+  file_write("--hash--");
+
   for(int i = 0; i < n; i++){
-    hash_insert(ht, generar_numero());
+    number = generar_numero();
+    start_time();
+    hash_insert(ht, number);
+    end_time();
   }
 
   return ht;
@@ -26,8 +33,13 @@ hashNode** generar_hash(int n, int m) {
 avlNode* generar_bst(int n) {
   avlNode *bst = NULL;
 
+  file_write("--bst--");
+
   for(int i = 0; i < n;i++){
-    bst = bst_insert(bst, generar_numero());
+    number = generar_numero();
+    start_time();
+    bst = bst_insert(bst, number);
+    end_time();
   }
 
   return bst;
@@ -35,18 +47,29 @@ avlNode* generar_bst(int n) {
 
 lista* generar_lista(int n) {
   lista *list = lista_crear();
-  for(int i = 0; i < n;i++){
-    lista_insertar(&list, generar_numero());
-  }
 
+  file_write("--lista--");
+
+  for(int i = 0; i < n;i++){
+    number = generar_numero();
+    start_time();
+    lista_insertar(&list, number);
+    end_time();
+  }
 
   return list;
 }
 
 int* generar_arreglo(int n) {
   int *arreglo = arreglo_crear(n);
+
+  file_write("--arreglo--");
+
   for(int i = 0; i < n;i++){
-    arreglo_insert(arreglo, i, generar_numero());
+    number = generar_numero();
+    start_time();
+    arreglo_insert(arreglo, i, number);
+    end_time();
   }
 
   return arreglo;
