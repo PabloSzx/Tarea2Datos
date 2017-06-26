@@ -6,9 +6,10 @@
 #include <string>
 #include <time.h>
 #include <ctime>
+#include <chrono>
 #include <fstream>
 #include "utilities/file.h"
-#include "utilities/clock.h"
+#include "utilities/chrono.h"
 #include "structures/arreglo.h"
 #include "structures/avl.h"
 #include "structures/lista.h"

@@ -24,9 +24,9 @@ hashNode** generar_hash(int n, int m) {
 
   for(int i = 0; i < n; i++){
     number = generar_numero();
-    clock_start();
+    auto t = chrono_now();
     hash_insert(ht, number);
-    clock_end();
+    chrono_get_time(t);
   }
 
   return ht;
@@ -39,9 +39,9 @@ avlNode* generar_bst(int n) {
 
   for(int i = 0; i < n;i++){
     number = generar_numero();
-    clock_start();
+    auto t = chrono_now();
     bst = bst_insert(bst, number);
-    clock_end();
+    chrono_get_time(t);
   }
 
   return bst;
@@ -54,9 +54,9 @@ lista* generar_lista(int n) {
 
   for(int i = 0; i < n;i++){
     number = generar_numero();
-    clock_start();
+    auto t = chrono_now();
     lista_insert(&list, number);
-    clock_end();
+    chrono_get_time(t);
   }
 
   return list;
@@ -69,9 +69,9 @@ int* generar_arreglo(int n, int* largoArreglo) {
 
   for(int i = 0; i < n;i++){
     number = generar_numero();
-    clock_start();
+    auto t = chrono_now();
     arreglo_insert(arreglo, i, number, largoArreglo);
-    clock_end();
+    chrono_get_time(t);
   }
 
   return arreglo;
@@ -97,9 +97,9 @@ hashNode** generar_hash_desde_arreglo(int* arreglo, int n, int m){
   file_write("--hash--");
 
   for(int i = 0; i < n; i++){
-    clock_start();
+    auto t = chrono_now();
     hash_insert(ht, arreglo[i]);
-    clock_end();
+    chrono_get_time(t);
   }
 
   return ht;
@@ -112,9 +112,9 @@ avlNode* generar_bst_desde_arreglo(int* arreglo, int n) {
   file_write("--bst--");
 
   for(int i = 0; i < n;i++){
-    clock_start();
+    auto t = chrono_now();
     bst = bst_insert(bst, arreglo[i]);
-    clock_end();
+    chrono_get_time(t);
   }
 
   return bst;
@@ -128,9 +128,9 @@ lista* generar_lista_desde_arreglo(int* arreglo, int n) {
   file_write("--lista--");
 
   for (int i = 0; i < n; i++) {
-    clock_start();
+    auto t = chrono_now();
     lista_insert(&list, arreglo[i]);
-    clock_end();
+    chrono_get_time(t);
   }
 
   return list;

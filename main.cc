@@ -12,24 +12,27 @@ int main(int argc, char const *argv[]) {
   int n = atoi(argv[1]);
   // cout << n << endl;
   int m = sqrt(n);
+  int largoArreglo = 0;
+
 
   file_clear("insercion");
   file_clear("eliminacion");
 
-  // clock_t one = clock();
 
+
+  // auto one = chrono_now();
+  //
   // file_open("insercion");
-
+  //
   // hashNode** hash = generar_hash(n, m);
   //
   // avlNode* bst = generar_bst(n);
   //
   // lista* list = generar_lista(n);
   //
-  // int* arreglo = generar_arreglo(n);
+  // int* arreglo = generar_arreglo(n, &largoArreglo);
   //
-  // clock_start(one);
-  // clock_end("Generar todos los arreglos");
+  // chrono_get_time(one, "Generar todas las estructuras");
   //
   // cout << endl;
   //
@@ -47,84 +50,93 @@ int main(int argc, char const *argv[]) {
   // cout << endl;
   // cout << "ARREGLO" << endl;
   // arreglo_print(arreglo, n);
-  //
 
-  //CORTE ES ACA
-  file_clear("insercion");
-  file_open("insercion");
 
-  int largoArreglo = 0;
+
+  cout << "N = " << n << endl << endl;
+
+  auto todo = chrono_now();
+  chrono_start();
   int* arreglo = generar_arreglo(n, &largoArreglo);
-
-
+  chrono_end("Generar el arreglo random");
+  chrono_start();
   hashNode** hash = generar_hash_desde_arreglo(arreglo, n, m);
-
+  chrono_end("Generar el hash desde el arreglo previo");
+  chrono_start();
   avlNode* bst = generar_bst_desde_arreglo(arreglo, n);
-
+  chrono_end("Generar el bst desde el arreglo previo");
+  chrono_start();
   lista* list = generar_lista_desde_arreglo(arreglo, n);
+  chrono_end("Generar la lista desde el arreglo previo");
 
+  chrono_get_time(todo, "Generar todas las estructuras");
 
-  cout << "HASH" << endl;
-  hash_print(hash, m);
-  cout << endl;
-  cout << "BST" << endl;
-  bst_print(bst);
-  cout << endl;
-  cout << "LISTA" << endl;
-  lista_print(list);
-  cout << endl;
-  cout << "ARREGLO" << endl;
-  arreglo_print(arreglo, largoArreglo);
+  if (n < 50) {
+    cout << "HASH" << endl;
+    hash_print(hash, m);
+    cout << endl;
+    cout << "BST" << endl;
+    bst_print(bst);
+    cout << endl;
+    cout << "LISTA" << endl;
+    lista_print(list);
+    cout << endl;
+    cout << "ARREGLO" << endl;
+    arreglo_print(arreglo, largoArreglo);
+  }
 
   file_close();
   file_clear("eliminacion");
   file_open("eliminacion");
 
-  cout << "VAMOS A ELIMINAR EL N/2 VALOR DEL ARREGLO, EN TODAS LAS ESTRUCTURAS" << endl;
 
-  int x = arreglo[n/2];
-  cout << "x es " << x << endl;
+  cout << endl << endl << endl;
+  int nrand = generar_numero(n);
+  int x = arreglo[nrand];
+  cout << "Se eliminara la posicion " << nrand << " del arreglo" << endl;
+  cout << "Y el elemento a eliminar es " << x << endl << endl;
 
 
   file_write("--hash--");
-  clock_start();
+  chrono_start();
   hash_delete(hash_search(hash, x));
-  clock_end();
-  clock_end("Eliminacion en hash");
+  chrono_end();
+  chrono_end("Eliminacion en hash");
 
 
   file_write("--bst--");
-  clock_start();
+  chrono_start();
   bst = bst_delete(bst, x);
-  clock_end();
-  clock_end("Eliminacion en bst");
+  chrono_end();
+  chrono_end("Eliminacion en bst");
 
   file_write("--lista--");
-  clock_start();
+  chrono_start();
   lista_delete(lista_search(&list, x));
-  clock_end();
-  clock_end("Eliminacion en lista");
+  chrono_end();
+  chrono_end("Eliminacion en lista");
 
   file_write("--arreglo--");
-  clock_start();
+  chrono_start();
   arreglo_delete(arreglo, arreglo_search(arreglo, x, largoArreglo), &largoArreglo);
-  clock_end();
-  clock_end("Eliminacion en arreglo");
+  chrono_end();
+  chrono_end("Eliminacion en arreglo");
 
 
-  cout << "HASH" << endl;
-  hash_print(hash, m);
-  cout << endl;
-  cout << "BST" << endl;
-  bst_print(bst);
-  cout << endl;
-  cout << "LISTA" << endl;
-  lista_print(list);
-  cout << endl;
-  cout << "ARREGLO" << endl;
-  arreglo_print(arreglo, largoArreglo);
+  if (n < 50) {
+    cout << "HASH" << endl;
+    hash_print(hash, m);
+    cout << endl;
+    cout << "BST" << endl;
+    bst_print(bst);
+    cout << endl;
+    cout << "LISTA" << endl;
+    lista_print(list);
+    cout << endl;
+    cout << "ARREGLO" << endl;
+    arreglo_print(arreglo, largoArreglo);
+  }
 
-
-  cout << "Terminado" << endl;
+  cout << endl << endl << endl << "Terminado!!" << endl;
   return 0;
 }
