@@ -7,7 +7,6 @@
 #include <time.h>
 #include <ctime>
 #include <fstream>
-#include <array>
 #include "utilities/file.h"
 #include "utilities/clock.h"
 #include "structures/arreglo.h"

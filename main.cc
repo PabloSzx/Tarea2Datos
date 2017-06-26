@@ -56,19 +56,12 @@ int main(int argc, char const *argv[]) {
   int largoArreglo = 0;
   int* arreglo = generar_arreglo(n, &largoArreglo);
 
-  cout << "largoArreglo " << largoArreglo << endl;
 
   hashNode** hash = generar_hash_desde_arreglo(arreglo, n, m);
-  cout << "largoArreglo " << largoArreglo << endl;
 
   avlNode* bst = generar_bst_desde_arreglo(arreglo, n);
-  cout << "largoArreglo " << largoArreglo << endl;
 
   lista* list = generar_lista_desde_arreglo(arreglo, n);
-
-
-
-  cout << "largoArreglo " << largoArreglo << endl << endl;
 
 
   cout << "HASH" << endl;

@@ -81,9 +81,9 @@ int generar_numero() {
 
 hashNode** generar_hash_desde_arreglo(int* arreglo, int n, int m){
   hashNode **ht = (hashNode**)malloc(sizeof(hashNode*)*m);
-  // for(int i=0; i < m; i++){
-  //   ht[i] = NULL;
-  // }
+  for(int i = 0; i < m; i++){
+    ht[i] = NULL;
+  }
   hash_gen_function(m);
 
   file_write("--hash--");
