@@ -2,16 +2,18 @@
 #define GENERAR_H
 
 int generar_numero();
+int generar_numero(int n);
 hashNode** generar_hash(int n, int m);
 avlNode* generar_bst(int n);
 lista* generar_lista(int n);
 int* generar_arreglo(int n, int* largoArreglo);
+hashNode** generar_hash_desde_arreglo(int* arreglo, int n, int m);
+avlNode* generar_bst_desde_arreglo(int* arreglo, int n);
+lista* generar_lista_desde_arreglo(int* arreglo, int n);
 
-int dim=1000000;
 int number;
 
 hashNode** generar_hash(int n, int m) {
-
   hashNode **ht = (hashNode**)malloc(sizeof(hashNode*)*m);
   for(int i=0; i < m; i++){
     ht[i] = NULL;
@@ -76,7 +78,13 @@ int* generar_arreglo(int n, int* largoArreglo) {
 }
 
 int generar_numero() {
-  return rand()%dim;
+  //Retorna numero entre 0 y 1000000
+  return (rand() % (1000000 + 1));
+}
+
+int generar_numero(int n) {
+  //Retorna numero entre 0 y (n - 1)
+  return (rand() % n);
 }
 
 hashNode** generar_hash_desde_arreglo(int* arreglo, int n, int m){
@@ -89,7 +97,6 @@ hashNode** generar_hash_desde_arreglo(int* arreglo, int n, int m){
   file_write("--hash--");
 
   for(int i = 0; i < n; i++){
-    // number = generar_numero();
     clock_start();
     hash_insert(ht, arreglo[i]);
     clock_end();
@@ -105,7 +112,6 @@ avlNode* generar_bst_desde_arreglo(int* arreglo, int n) {
   file_write("--bst--");
 
   for(int i = 0; i < n;i++){
-    // number = generar_numero();
     clock_start();
     bst = bst_insert(bst, arreglo[i]);
     clock_end();
