@@ -32,4 +32,20 @@ void file_write(double n) {
   myfile << n << "\n";
 }
 
+void file_write(int n) {
+  myfile << n << "\n";
+}
+
+void file_write_no_breakline(const char* str) {
+  myfile << str;
+}
+
+void file_write_no_breakline(double n) {
+  myfile << n;
+}
+
+void file_write_no_breakline(int n) {
+  myfile << n;
+}
+
 #endif

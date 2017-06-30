@@ -177,6 +177,8 @@ avlNode* bst_min_value_node(avlNode* node) {
   return current;
 }
 
+// bst_delete(bst_search())
+
 avlNode* bst_delete( avlNode* root, int val) {
   // STEP 1: PERFORM STANDARD BST DELETE
 

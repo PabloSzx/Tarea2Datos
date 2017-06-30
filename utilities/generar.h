@@ -65,14 +65,29 @@ lista* generar_lista(int n) {
 int* generar_arreglo(int n, int* largoArreglo) {
   int* arreglo = arreglo_create(n);
 
-  file_write("--arreglo--");
+  // file_write_no_breakline("--arreglo con n= ");
+  // file_write_no_breakline(n);
+  // file_write("--");
+  // file_write("--arreglo--");
+  // file_write_no_breakline(n);
+  // file_write(n)
 
+  auto tiempo = chrono_now();
   for(int i = 0; i < n;i++){
     number = generar_numero();
-    auto t = chrono_now();
+    // auto t = chrono_now();
     arreglo_insert(arreglo, i, number, largoArreglo);
-    chrono_get_time(t);
+    // chrono_get_time(t);
   }
+  // double n2 = n;
+  // auto tiempo2 = (tiempo / n2);
+  // cout << tiempo2 << endl;
+  chrono_get_time(tiempo);
+  // auto tiempo2 = chrono_get_time_double(tiempo1);
+
+
+
+  // file.write((t2-t1) / n)
 
   return arreglo;
 }
@@ -94,13 +109,19 @@ hashNode** generar_hash_desde_arreglo(int* arreglo, int n, int m){
   }
   hash_gen_function(m);
 
-  file_write("--hash--");
+  // file_write("--hash--");
+  // file_write_no_breakline("--hash con n= ");
+  // file_write_no_breakline(n);
+  // file_write("--");
 
+
+  auto tiempo = chrono_now();
   for(int i = 0; i < n; i++){
-    auto t = chrono_now();
+    // auto t = chrono_now();
     hash_insert(ht, arreglo[i]);
-    chrono_get_time(t);
+    // chrono_get_time(t);
   }
+  chrono_get_time(tiempo);
 
   return ht;
 }
@@ -109,13 +130,21 @@ hashNode** generar_hash_desde_arreglo(int* arreglo, int n, int m){
 avlNode* generar_bst_desde_arreglo(int* arreglo, int n) {
   avlNode *bst = NULL;
 
-  file_write("--bst--");
+  // file_write("--bst--");
+
+  // file_write_no_breakline("--bst con n= ");
+  // file_write_no_breakline(n);
+  // file_write("--");
+
+  auto tiempo = chrono_now();
 
   for(int i = 0; i < n;i++){
-    auto t = chrono_now();
+    // auto t = chrono_now();
     bst = bst_insert(bst, arreglo[i]);
-    chrono_get_time(t);
+    // chrono_get_time(t);
   }
+
+  chrono_get_time(tiempo);
 
   return bst;
 }
@@ -125,13 +154,20 @@ lista* generar_lista_desde_arreglo(int* arreglo, int n) {
 
   lista *list = lista_create();
 
-  file_write("--lista--");
+  // file_write("--lista--");
+  // file_write_no_breakline("--lista con n= ");
+  // file_write_no_breakline(n);
+  // file_write("--");
 
+
+  auto tiempo = chrono_now();
   for (int i = 0; i < n; i++) {
-    auto t = chrono_now();
+    // auto t = chrono_now();
     lista_insert(&list, arreglo[i]);
-    chrono_get_time(t);
+    // chrono_get_time(t);
   }
+
+  chrono_get_time(tiempo);
 
   return list;
 }

@@ -9,6 +9,7 @@ void chrono_end();
 void chrono_end(const char* str);
 void chrono_get_time(high_resolution_clock::time_point t1);
 void chrono_get_time(const char* str, high_resolution_clock::time_point t1);
+// double chrono_get_time_double(high_resolution_clock::time_point t);
 
 high_resolution_clock::time_point t1 = high_resolution_clock::now();
 
@@ -53,5 +54,13 @@ void chrono_get_time(high_resolution_clock::time_point t, const char* str) {
   std::cout << str << " se demoró: " << time_span.count() << " segundos." << endl;
 }
 
+// double chrono_get_time_double(high_resolution_clock::time_point t) {
+//   high_resolution_clock::time_point t2 = high_resolution_clock::now();
+//
+//   duration<double> time_span = duration_cast<duration<double>>(t2 - t);
+//
+//   return time_span.count();
+//   // std::cout << str << " se demoró: " << time_span.count() << " segundos." << endl;
+// }
 
 #endif

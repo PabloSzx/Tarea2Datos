@@ -15,8 +15,8 @@ int main(int argc, char const *argv[]) {
   int largoArreglo = 0;
 
 
-  file_clear("insercion");
-  file_clear("eliminacion");
+  // file_clear("insercion");
+  // file_clear("eliminacion");
 
 
 
@@ -51,10 +51,11 @@ int main(int argc, char const *argv[]) {
   // cout << "ARREGLO" << endl;
   // arreglo_print(arreglo, n);
 
-
-
   cout << "N = " << n << endl << endl;
 
+  file_open("insercion");
+  file_write_no_breakline("-- n=");
+  file_write(n);
   auto todo = chrono_now();
   chrono_start();
   int* arreglo = generar_arreglo(n, &largoArreglo);
@@ -86,56 +87,59 @@ int main(int argc, char const *argv[]) {
   }
 
   file_close();
-  file_clear("eliminacion");
+  // file_clear("eliminacion");
   file_open("eliminacion");
 
 
   cout << endl << endl << endl;
-  int nrand = generar_numero(n);
-  int x = arreglo[nrand];
-  cout << "Se eliminara la posicion " << nrand << " del arreglo" << endl;
-  cout << "Y el elemento a eliminar es " << x << endl << endl;
 
 
-  file_write("--hash--");
-  chrono_start();
-  hash_delete(hash_search(hash, x));
-  chrono_end();
-  chrono_end("Eliminacion en hash");
+  
+  // int nrand = generar_numero(n);
+  // int x = arreglo[nrand];
+  // cout << "Se eliminara la posicion " << nrand << " del arreglo" << endl;
+  // cout << "Y el elemento a eliminar es " << x << endl << endl;
 
 
-  file_write("--bst--");
-  chrono_start();
-  bst = bst_delete(bst, x);
-  chrono_end();
-  chrono_end("Eliminacion en bst");
+  // file_write("--hash--");
+  // chrono_start();
+  // hash_delete(hash_search(hash, x));
+  // chrono_end();
+  // chrono_end("Eliminacion en hash");
+  //
+  //
+  // file_write("--bst--");
+  // chrono_start();
+  // bst = bst_delete(bst, x);
+  // chrono_end();
+  // chrono_end("Eliminacion en bst");
+  //
+  // file_write("--lista--");
+  // chrono_start();
+  // lista_delete(lista_search(&list, x));
+  // chrono_end();
+  // chrono_end("Eliminacion en lista");
+  //
+  // file_write("--arreglo--");
+  // chrono_start();
+  // arreglo_delete(arreglo, arreglo_search(arreglo, x, largoArreglo), &largoArreglo);
+  // chrono_end();
+  // chrono_end("Eliminacion en arreglo");
 
-  file_write("--lista--");
-  chrono_start();
-  lista_delete(lista_search(&list, x));
-  chrono_end();
-  chrono_end("Eliminacion en lista");
 
-  file_write("--arreglo--");
-  chrono_start();
-  arreglo_delete(arreglo, arreglo_search(arreglo, x, largoArreglo), &largoArreglo);
-  chrono_end();
-  chrono_end("Eliminacion en arreglo");
-
-
-  if (n < 50) {
-    cout << "HASH" << endl;
-    hash_print(hash, m);
-    cout << endl;
-    cout << "BST" << endl;
-    bst_print(bst);
-    cout << endl;
-    cout << "LISTA" << endl;
-    lista_print(list);
-    cout << endl;
-    cout << "ARREGLO" << endl;
-    arreglo_print(arreglo, largoArreglo);
-  }
+  // if (n < 50) {
+  //   cout << "HASH" << endl;
+  //   hash_print(hash, m);
+  //   cout << endl;
+  //   cout << "BST" << endl;
+  //   bst_print(bst);
+  //   cout << endl;
+  //   cout << "LISTA" << endl;
+  //   lista_print(list);
+  //   cout << endl;
+  //   cout << "ARREGLO" << endl;
+  //   arreglo_print(arreglo, largoArreglo);
+  // }
 
   cout << endl << endl << endl << "Terminado!!" << endl;
   return 0;
