@@ -56,7 +56,7 @@ int main(int argc, char const *argv[]) {
   file_open("insercion");
   file_write_no_breakline("-- n=");
   file_write(n);
-  auto todo = chrono_now();
+  auto todoInsertar = chrono_now();
   chrono_start();
   int* arreglo = generar_arreglo(n, &largoArreglo);
   chrono_end("Generar el arreglo random");
@@ -70,7 +70,7 @@ int main(int argc, char const *argv[]) {
   lista* list = generar_lista_desde_arreglo(arreglo, n);
   chrono_end("Generar la lista desde el arreglo previo");
 
-  chrono_get_time(todo, "Generar todas las estructuras");
+  chrono_get_time(todoInsertar, "Generar todas las estructuras");
 
   if (n < 50) {
     cout << "HASH" << endl;
@@ -89,12 +89,41 @@ int main(int argc, char const *argv[]) {
   file_close();
   // file_clear("eliminacion");
   file_open("eliminacion");
+  file_write_no_breakline("-- n=");
+  file_write(n);
 
 
   cout << endl << endl << endl;
 
 
-  
+  auto todoEliminar = chrono_now();
+
+  chrono_start();
+  delete_arreglo(arreglo, n, &largoArreglo);
+  chrono_end("Eliminacion en el arreglo");
+
+  chrono_start();
+  delete_hash(hash, n);
+  chrono_end("Eliminacion en el hash");
+
+  chrono_start();
+  delete_bst(&bst, n);
+  chrono_end("Eliminacion en el bst");
+
+  chrono_start();
+  delete_lista(&list, n);
+  chrono_end("Eliminacion en la lista");
+
+  chrono_get_time(todoEliminar, "Eliminar en todas las estructuras");
+
+  if (n < 50) {
+    arreglo_print(arreglo, largoArreglo);
+    lista_print(list);
+    hash_print(hash, m);
+    cout << endl << endl;
+    bst_print(bst);
+  }
+
   // int nrand = generar_numero(n);
   // int x = arreglo[nrand];
   // cout << "Se eliminara la posicion " << nrand << " del arreglo" << endl;

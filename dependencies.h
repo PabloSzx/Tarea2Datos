@@ -15,3 +15,5 @@
 #include "structures/lista.h"
 #include "structures/hash.h"
 #include "utilities/generar.h"
+#include "utilities/delete.h"
+#include "utilities/search.h"

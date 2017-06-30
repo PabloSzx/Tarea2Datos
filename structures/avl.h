@@ -155,7 +155,7 @@ avlNode* bst_insert(avlNode* node, int val) {
 
 avlNode* bst_search(avlNode **r, int val) {
   if ((*r) == NULL) {
-    cout << "\nNodo no encontrado";
+    // cout << "\nNodo no encontrado";
     return NULL;
   } else if ((*r)->val < val) {
     return bst_search(&(*r)->right, val);
@@ -214,7 +214,7 @@ avlNode* bst_delete( avlNode* root, int val) {
       else // One child case
       *root = *temp; // Copy the contents of
       // the non-empty child
-      free(temp);
+      // free(temp);
     }
     else
     {
