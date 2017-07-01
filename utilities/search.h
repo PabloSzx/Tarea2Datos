@@ -2,7 +2,7 @@
 #define SEARCH_H
 
 void search_arreglo(int* arreglo, int n);
-void search_lista(nodoLista** list, int n);
+void search_lista(lista** list, int n);
 void search_hash(hashNode** ht, int n);
 void search_bst(avlNode **bst, int n);
 
@@ -15,7 +15,7 @@ void search_arreglo(int* arreglo, int n) {
   file_write_space();
 }
 
-void search_lista(nodoLista** list, int n) {
+void search_lista(lista** list, int n) {
 
   auto tiempo = chrono_now();
   for (int i = 0; i < n; i++) {
