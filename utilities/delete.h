@@ -16,13 +16,13 @@ void delete_arreglo(int* arreglo, int n, int* largoArreglo) {
   file_write(time_span.count());
 }
 
-void delete_lista(lista **list, int n) {
+void delete_lista(nodoLista **list, int n) {
   duration<double> sumTiempo;
 
   for (int i = 0; i < n; i++) {
     nodoLista* x = lista_search(list, generar_numero());
     auto tiempo = chrono_now();
-    lista_delete(x);
+    lista_delete(list, x);
     sumTiempo = sumTiempo + chrono_get_time_return(tiempo);
   }
 

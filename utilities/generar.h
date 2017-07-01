@@ -5,11 +5,11 @@ int generar_numero();
 int generar_numero(int n);
 hashNode** generar_hash(int n, int m);
 avlNode* generar_bst(int n);
-lista* generar_lista(int n);
+nodoLista* generar_lista(int n);
 int* generar_arreglo(int n, int* largoArreglo);
 hashNode** generar_hash_desde_arreglo(int* arreglo, int n, int m);
 avlNode* generar_bst_desde_arreglo(int* arreglo, int n);
-lista* generar_lista_desde_arreglo(int* arreglo, int n);
+nodoLista* generar_lista_desde_arreglo(int* arreglo, int n);
 
 int number;
 int dim = 1000000;
@@ -48,8 +48,8 @@ avlNode* generar_bst(int n) {
   return bst;
 }
 
-lista* generar_lista(int n) {
-  lista *list = lista_create();
+nodoLista* generar_lista(int n) {
+  nodoLista *list = NULL;
 
   file_write("--lista--");
 
@@ -151,9 +151,9 @@ avlNode* generar_bst_desde_arreglo(int* arreglo, int n) {
 }
 
 
-lista* generar_lista_desde_arreglo(int* arreglo, int n) {
+nodoLista* generar_lista_desde_arreglo(int* arreglo, int n) {
 
-  lista *list = lista_create();
+  nodoLista *list = NULL;
 
   // file_write("--lista--");
   // file_write_no_breakline("--lista con n= ");

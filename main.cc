@@ -70,7 +70,7 @@ int main(int argc, char const *argv[]) {
   avlNode* bst = generar_bst_desde_arreglo(arreglo, n);
   chrono_end("Generar el bst desde el arreglo previo");
   chrono_start();
-  lista* list = generar_lista_desde_arreglo(arreglo, n);
+  nodoLista* list = generar_lista_desde_arreglo(arreglo, n);
   chrono_end("Generar la lista desde el arreglo previo");
 
   chrono_get_time(todoInsertar, "Generar todas las estructuras");
