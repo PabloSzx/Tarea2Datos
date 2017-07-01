@@ -10,6 +10,9 @@ int main(int argc, char const *argv[]) {
   srand(time(NULL));
 
   int n = atoi(argv[1]);
+  if (n < 50) {
+    dim = n;
+  }
   // cout << n << endl;
   int m = sqrt(n);
   int largoArreglo = 0;

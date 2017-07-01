@@ -12,6 +12,7 @@ avlNode* generar_bst_desde_arreglo(int* arreglo, int n);
 lista* generar_lista_desde_arreglo(int* arreglo, int n);
 
 int number;
+int dim = 1000000;
 
 hashNode** generar_hash(int n, int m) {
   hashNode **ht = (hashNode**)malloc(sizeof(hashNode*)*m);
@@ -94,7 +95,7 @@ int* generar_arreglo(int n, int* largoArreglo) {
 
 int generar_numero() {
   //Retorna numero entre 0 y 1000000
-  return (rand() % (1000000 + 1));
+  return (rand() % (dim + 1));
 }
 
 int generar_numero(int n) {
