@@ -2,7 +2,7 @@
 #define DELETE_H
 
 void delete_arreglo(int* arreglo, int n, int* largoArreglo) {
-  duration<double> sumTiempo;
+  double sumTiempo;
 
   for (int i = 0; i < n; i++) {
     int pos = arreglo_search(arreglo, generar_numero(), n);
@@ -11,13 +11,14 @@ void delete_arreglo(int* arreglo, int n, int* largoArreglo) {
     sumTiempo = sumTiempo + chrono_get_time_return(tiempo);
   }
 
-  duration<double> time_span = duration_cast<duration<double>>(sumTiempo);
+  // duration<double> time_span = duration_cast<duration<double>>(sumTiempo);
 
-  file_write(time_span.count());
+  // file_write_space(time_span.count());
+  file_write_space(sumTiempo);
 }
 
 void delete_lista(nodoLista **list, int n) {
-  duration<double> sumTiempo;
+  double sumTiempo;
 
   for (int i = 0; i < n; i++) {
     nodoLista* x = lista_search(list, generar_numero());
@@ -26,13 +27,15 @@ void delete_lista(nodoLista **list, int n) {
     sumTiempo = sumTiempo + chrono_get_time_return(tiempo);
   }
 
-  duration<double> time_span = duration_cast<duration<double>>(sumTiempo);
+  // duration<double> time_span = duration_cast<duration<double>>(sumTiempo);
 
-  file_write(time_span.count());
+  // file_write_breakline(time_span.count());
+  file_write_breakline(sumTiempo);
+
 }
 
 void delete_hash(hashNode** ht, int n) {
-  duration<double> sumTiempo;
+  double sumTiempo;
 
   for (int i = 0; i < n; i++) {
     hashNode* x = hash_search(ht, generar_numero());
@@ -41,13 +44,14 @@ void delete_hash(hashNode** ht, int n) {
     sumTiempo = sumTiempo + chrono_get_time_return(tiempo);
   }
 
-  duration<double> time_span = duration_cast<duration<double>>(sumTiempo);
+  // duration<double> time_span = duration_cast<duration<double>>(sumTiempo);
 
-  file_write(time_span.count());
+  // file_write_space(time_span.count());
+  file_write_space(sumTiempo);
 }
 
 void delete_bst(avlNode** bst, int n) {
-  duration<double> sumTiempo;
+  double sumTiempo;
 
   for (int i = 0; i < n; i++) {
     int nrand = generar_numero();
@@ -65,10 +69,10 @@ void delete_bst(avlNode** bst, int n) {
     sumTiempo = sumTiempo + (tDeleteConBusqueda - tBusqueda);
   }
 
-  duration<double> time_span = duration_cast<duration<double>>(sumTiempo);
+  // duration<double> time_span = duration_cast<duration<double>>(sumTiempo);
 
-  file_write(time_span.count());
-
+  // file_write_space(time_span.count());
+  file_write_space(sumTiempo);
 }
 
 

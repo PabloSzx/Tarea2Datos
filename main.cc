@@ -57,8 +57,7 @@ int main(int argc, char const *argv[]) {
   cout << "N = " << n << endl << endl;
 
   file_open("insercion");
-  file_write_no_breakline("-- n=");
-  file_write(n);
+  file_write_space(n);
   auto todoInsertar = chrono_now();
   chrono_start();
   int* arreglo = generar_arreglo(n, &largoArreglo);
@@ -90,67 +89,60 @@ int main(int argc, char const *argv[]) {
   }
 
   file_close();
-  // file_clear("eliminacion");
-  file_open("busqueda");
-  file_write_no_breakline("-- n=");
-  file_write(n);
-
 
   cout << endl << endl << endl;
+
+  file_open("busqueda");
+  file_write_space(n);
+
 
   auto todoBuscar = chrono_now();
 
   chrono_start();
-  search_arreglo(arreglo, log10(n));
+  search_arreglo(arreglo, n/100);
   chrono_end("Busqueda en el arreglo");
 
   chrono_start();
-  search_lista(&list, log10(n));
-  chrono_end("Busqueda en la lista");
-
-  chrono_start();
-  search_hash(hash, log10(n));
+  search_hash(hash, n/100);
   chrono_end("Busqueda en el hash");
 
   chrono_start();
-  search_bst(&bst, log10(n));
+  search_bst(&bst, n/100);
   chrono_end("Busqueda en el bst");
+
+  chrono_start();
+  search_lista(&list, n/100);
+  chrono_end("Busqueda en la lista");
 
   chrono_get_time(todoBuscar, "Buscar en todas las estructuras");
 
   file_close();
 
-  file_open("eliminacion");
-
   cout << endl << endl << endl;
+
+  file_open("eliminacion");
+  file_write_space(n);
+
 
   auto todoEliminar = chrono_now();
 
   chrono_start();
-  delete_arreglo(arreglo, log10(n), &largoArreglo);
+  delete_arreglo(arreglo, n/100, &largoArreglo);
   chrono_end("Eliminacion en el arreglo");
 
   chrono_start();
-  delete_hash(hash, log10(n));
+  delete_hash(hash, n/100);
   chrono_end("Eliminacion en el hash");
 
   chrono_start();
-  delete_bst(&bst, log10(n));
+  delete_bst(&bst, n/100);
   chrono_end("Eliminacion en el bst");
 
   chrono_start();
-  delete_lista(&list, log10(n));
+  delete_lista(&list, n/100);
   chrono_end("Eliminacion en la lista");
 
   chrono_get_time(todoEliminar, "Eliminar en todas las estructuras");
-
-  if (n < 50) {
-    arreglo_print(arreglo, largoArreglo);
-    lista_print(list);
-    hash_print(hash, m);
-    cout << endl << endl;
-    bst_print(bst);
-  }
 
   if (n < 50) {
     cout << "HASH" << endl;
@@ -166,6 +158,6 @@ int main(int argc, char const *argv[]) {
     arreglo_print(arreglo, largoArreglo);
   }
 
-  cout << endl << endl << endl << "Terminado!!" << endl;
+  cout << endl << endl << endl << "Terminado!!" << endl << endl;
   return 0;
 }

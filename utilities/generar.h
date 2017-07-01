@@ -14,54 +14,54 @@ nodoLista* generar_lista_desde_arreglo(int* arreglo, int n);
 int number;
 int dim = 1000000;
 
-hashNode** generar_hash(int n, int m) {
-  hashNode **ht = (hashNode**)malloc(sizeof(hashNode*)*m);
-  for(int i=0; i < m; i++){
-    ht[i] = NULL;
-  }
-  hash_gen_function(m);
+// hashNode** generar_hash(int n, int m) {
+//   hashNode **ht = (hashNode**)malloc(sizeof(hashNode*)*m);
+//   for(int i=0; i < m; i++){
+//     ht[i] = NULL;
+//   }
+//   hash_gen_function(m);
+//
+//   file_write("--hash--");
+//
+//   for(int i = 0; i < n; i++){
+//     number = generar_numero();
+//     auto t = chrono_now();
+//     hash_insert(ht, number);
+//     chrono_get_time(t);
+//   }
+//
+//   return ht;
+// }
 
-  file_write("--hash--");
+// avlNode* generar_bst(int n) {
+//   avlNode *bst = NULL;
+//
+//   file_write("--bst--");
+//
+//   for(int i = 0; i < n;i++){
+//     number = generar_numero();
+//     auto t = chrono_now();
+//     bst = bst_insert(bst, number);
+//     chrono_get_time(t);
+//   }
+//
+//   return bst;
+// }
 
-  for(int i = 0; i < n; i++){
-    number = generar_numero();
-    auto t = chrono_now();
-    hash_insert(ht, number);
-    chrono_get_time(t);
-  }
-
-  return ht;
-}
-
-avlNode* generar_bst(int n) {
-  avlNode *bst = NULL;
-
-  file_write("--bst--");
-
-  for(int i = 0; i < n;i++){
-    number = generar_numero();
-    auto t = chrono_now();
-    bst = bst_insert(bst, number);
-    chrono_get_time(t);
-  }
-
-  return bst;
-}
-
-nodoLista* generar_lista(int n) {
-  nodoLista *list = NULL;
-
-  file_write("--lista--");
-
-  for(int i = 0; i < n;i++){
-    number = generar_numero();
-    auto t = chrono_now();
-    lista_insert(&list, number);
-    chrono_get_time(t);
-  }
-
-  return list;
-}
+// nodoLista* generar_lista(int n) {
+//   nodoLista *list = NULL;
+//
+//   file_write("--lista--");
+//
+//   for(int i = 0; i < n;i++){
+//     number = generar_numero();
+//     auto t = chrono_now();
+//     lista_insert(&list, number);
+//     chrono_get_time(t);
+//   }
+//
+//   return list;
+// }
 
 int* generar_arreglo(int n, int* largoArreglo) {
   int* arreglo = arreglo_create(n);
@@ -84,6 +84,7 @@ int* generar_arreglo(int n, int* largoArreglo) {
   // auto tiempo2 = (tiempo / n2);
   // cout << tiempo2 << endl;
   chrono_get_time(tiempo);
+  file_write_space();
   // auto tiempo2 = chrono_get_time_double(tiempo1);
 
 
@@ -123,6 +124,7 @@ hashNode** generar_hash_desde_arreglo(int* arreglo, int n, int m){
     // chrono_get_time(t);
   }
   chrono_get_time(tiempo);
+  file_write_space();
 
   return ht;
 }
@@ -146,6 +148,7 @@ avlNode* generar_bst_desde_arreglo(int* arreglo, int n) {
   }
 
   chrono_get_time(tiempo);
+  file_write_space();
 
   return bst;
 }
@@ -169,6 +172,7 @@ nodoLista* generar_lista_desde_arreglo(int* arreglo, int n) {
   }
 
   chrono_get_time(tiempo);
+  file_write_breakline();
 
   return list;
 }

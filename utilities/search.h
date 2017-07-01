@@ -12,6 +12,7 @@ void search_arreglo(int* arreglo, int n) {
     arreglo_search(arreglo, generar_numero(), n);
   }
   chrono_get_time(tiempo);
+  file_write_space();
 }
 
 void search_lista(nodoLista** list, int n) {
@@ -21,6 +22,7 @@ void search_lista(nodoLista** list, int n) {
     lista_search(list, generar_numero());
   }
   chrono_get_time(tiempo);
+  file_write_breakline();
 }
 
 void search_hash(hashNode** ht, int n) {
@@ -29,6 +31,7 @@ void search_hash(hashNode** ht, int n) {
     hash_search(ht, generar_numero());
   }
   chrono_get_time(tiempo);
+  file_write_space();
 }
 
 void search_bst(avlNode **bst, int n) {
@@ -37,6 +40,7 @@ void search_bst(avlNode **bst, int n) {
     bst_search(bst, generar_numero());
   }
   chrono_get_time(tiempo);
+  file_write_space();
 }
 
 
