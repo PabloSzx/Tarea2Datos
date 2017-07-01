@@ -1,5 +1,10 @@
-#ifndef DELETE_H
-#define DELETE_H
+#ifndef SEARCH_H
+#define SEARCH_H
+
+void search_arreglo(int* arreglo, int n);
+void search_lista(lista** list, int n);
+void search_hash(hashNode** ht, int n);
+void search_bst(avlNode **bst, int n);
 
 void search_arreglo(int* arreglo, int n) {
   auto tiempo = chrono_now();

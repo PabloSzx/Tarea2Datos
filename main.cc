@@ -98,34 +98,54 @@ int main(int argc, char const *argv[]) {
 
   cout << endl << endl << endl;
 
-
-  auto todoEliminar = chrono_now();
-
-  chrono_start();
-  delete_arreglo(arreglo, n, &largoArreglo);
-  chrono_end("Eliminacion en el arreglo");
+  auto todoBuscar = chrono_now();
 
   chrono_start();
-  delete_hash(hash, n);
-  chrono_end("Eliminacion en el hash");
+  search_arreglo(arreglo, n);
+  chrono_end("Busqueda en el arreglo");
 
   chrono_start();
-  delete_bst(&bst, n);
-  chrono_end("Eliminacion en el bst");
+  search_lista(&list, n);
+  chrono_end("Busqueda en la lista");
 
   chrono_start();
-  delete_lista(&list, n);
-  chrono_end("Eliminacion en la lista");
+  search_hash(hash, n);
+  chrono_end("Busqueda en el hash");
 
-  chrono_get_time(todoEliminar, "Eliminar en todas las estructuras");
+  chrono_start();
+  search_bst(&bst, n);
+  chrono_end("Busqueda en el bst");
 
-  if (n < 50) {
-    arreglo_print(arreglo, largoArreglo);
-    lista_print(list);
-    hash_print(hash, m);
-    cout << endl << endl;
-    bst_print(bst);
-  }
+  chrono_get_time(todoBuscar, "Buscar en todas las estructuras");
+
+
+  // auto todoEliminar = chrono_now();
+  //
+  // chrono_start();
+  // delete_arreglo(arreglo, n, &largoArreglo);
+  // chrono_end("Eliminacion en el arreglo");
+  //
+  // chrono_start();
+  // delete_hash(hash, n);
+  // chrono_end("Eliminacion en el hash");
+  //
+  // chrono_start();
+  // delete_bst(&bst, n);
+  // chrono_end("Eliminacion en el bst");
+  //
+  // chrono_start();
+  // delete_lista(&list, n);
+  // chrono_end("Eliminacion en la lista");
+  //
+  // chrono_get_time(todoEliminar, "Eliminar en todas las estructuras");
+  //
+  // if (n < 50) {
+  //   arreglo_print(arreglo, largoArreglo);
+  //   lista_print(list);
+  //   hash_print(hash, m);
+  //   cout << endl << endl;
+  //   bst_print(bst);
+  // }
 
   // int nrand = generar_numero(n);
   // int x = arreglo[nrand];
