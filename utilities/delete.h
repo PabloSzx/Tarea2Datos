@@ -59,7 +59,7 @@ void delete_bst(avlNode** bst, int n) {
     auto tBusqueda = chrono_get_time_return(t);
 
     auto tiempo = chrono_now();
-    bst_delete(*bst, nrand);
+    *bst = bst_delete(*bst, nrand);
     auto tDeleteConBusqueda = chrono_get_time_return(tiempo);
 
     sumTiempo = sumTiempo + (tDeleteConBusqueda - tBusqueda);
