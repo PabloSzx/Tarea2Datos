@@ -93,7 +93,7 @@ int main(int argc, char const *argv[]) {
   cout << endl << endl << endl;
 
   file_open("busqueda");
-  file_write_space(n);
+  file_write_space(n / 100);
 
 
   auto todoBuscar = chrono_now();
@@ -121,7 +121,7 @@ int main(int argc, char const *argv[]) {
   cout << endl << endl << endl;
 
   file_open("eliminacion");
-  file_write_space(n);
+  file_write_space(n / 100);
 
 
   auto todoEliminar = chrono_now();
