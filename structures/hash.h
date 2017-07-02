@@ -53,23 +53,17 @@ void hash_print(hashNode **ht, int m) {
   for(int i=0; i<m; ++i) {
     hashNode *aux = ht[i];
     cout << endl << "h[" << i << "] = ";
-    // printf("ht[%i] = ", i);
     while(aux != NULL){
       cout << "(" << aux->val << ")";
       if (aux->next != NULL) {
         cout << " --> ";
       }
-      // printf("(%i) --> ", aux->val);
       aux = aux->next;
     }
     cout << endl;
-    // printf("NULL\n");
   }
 }
 
-
-
-// 1) encuentra el menor primo mayor que m
 int hash_mprimo(int n) {
   int c = n;
   while (!hash_es_primo(c)) {
@@ -85,9 +79,6 @@ void hash_gen_function(int n) {
   b = rand() % p;
 }
 
-
-
-// 3) inserta un elemento x en ht donde corresponde
 void hash_insert(hashNode **ht, int x) {
   int pos = hash_function(x);
 
@@ -97,14 +88,10 @@ void hash_insert(hashNode **ht, int x) {
 
   if ((*ptr) == NULL) {
     ht[pos] = n;
-    // (*ptr) = n;
   } else {
     (*ptr)->prev = n;
     n->next = (*ptr);
-    // ((*lista)->start)->prev = n;
-    // n->next = (*lista)->start;
     ht[pos] = n;
-    // (*lista)->start = n;
   }
 }
 
@@ -144,7 +131,6 @@ void hash_delete(hashNode *nodo) {
   }
 }
 
-// 4) retorna 1 si x existe en ht, de lo contrario 0
 int hash_exists(hashNode **ht, int x) {
   int pos = hash_function(x);
   hashNode *aux = ht[pos];

@@ -65,7 +65,6 @@ nodoLista* lista_search(lista **lista, int x) {
     if (ptr->val == x) {
       return ptr;
     }
-
     ptr = ptr->next;
   }
 

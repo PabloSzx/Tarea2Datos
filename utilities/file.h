@@ -9,6 +9,7 @@ void file_clear(const char* file);
 void file_write_breakline();
 void file_write_breakline(const char* str);
 void file_write_breakline(double n);
+void file_write_breakline(int n);
 void file_write_single(const char* str);
 void file_write_single(double n);
 void file_write_single(int n);

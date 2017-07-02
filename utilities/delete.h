@@ -1,6 +1,11 @@
 #ifndef DELETE_H
 #define DELETE_H
 
+void delete_arreglo(int* arreglo, int n, int* largoArreglo);
+void delete_lista(lista **list, int n);
+void delete_hash(hashNode** ht, int n);
+void delete_bst(avlNode** bst, int n);
+
 void delete_arreglo(int* arreglo, int n, int* largoArreglo) {
   duration<double> sumTiempo;
 

@@ -16,7 +16,6 @@ void search_arreglo(int* arreglo, int n) {
 }
 
 void search_lista(lista** list, int n) {
-
   auto tiempo = chrono_now();
   for (int i = 0; i < n; i++) {
     lista_search(list, generar_numero());

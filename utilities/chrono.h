@@ -7,9 +7,9 @@ high_resolution_clock::time_point chrono_now();
 void chrono_start();
 void chrono_end();
 void chrono_end(const char* str);
-void chrono_get_time(high_resolution_clock::time_point t1);
-void chrono_get_time(const char* str, high_resolution_clock::time_point t1);
-// double chrono_get_time_double(high_resolution_clock::time_point t);
+void chrono_get_time(high_resolution_clock::time_point t);
+void chrono_get_time(high_resolution_clock::time_point t, const char* str);
+duration<double> chrono_get_time_return(high_resolution_clock::time_point t);
 
 high_resolution_clock::time_point t1 = high_resolution_clock::now();
 
